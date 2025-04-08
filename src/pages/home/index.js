@@ -305,7 +305,9 @@ function Home() {
             <div
               key={index}
               onClick={() => handlePulseCardClick(card.audio, index)}
-              className="cursor-pointer"
+              className={`cursor-pointer transition-transform duration-300 ease-in-out ${
+                activePulseCard === index ? "scale-110 shadow-lg shadow-gray-300" : "scale-100"
+              }`}
             >
               <PulseCard
                 image={card.image}
