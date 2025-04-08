@@ -3,7 +3,7 @@ import Image from "next/image";
 function ExploreCard({ image, title, isActive, onClick }) {
   return (
     <div
-      className={`flex flex-col justify-center items-center mx-auto cursor-pointer transition-all duration-300 p-1 `}
+      className={`flex flex-col justify-center items-center mx-auto cursor-pointer transition-all duration-300  `}
       onClick={onClick}
     >
       <div className="w-full flex justify-center items-center h-16 px-6 py-11 pb-14 bg-white">

@@ -179,7 +179,7 @@ function Login(props) {
               }
             }}
             minLength={3}
-            maxLength={10}
+            maxLength={15}
             placeholder="Enter Your Full Name"
             className="h-11 capitalize rounded-full border  border-[#9C9C9C] px-3.5 py-3 text-[15px] leading-[100%] tracking-normal placeholder-[#9C9C9C] focus:outline-2 font-semibold"
           />

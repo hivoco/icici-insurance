@@ -226,14 +226,14 @@ function Home() {
           <div className="px-8  flex mx-auto flex-col gap-8 ">
             <SmallCard
               image={"bulb.svg"}
-              p1={"₹2.9 lakh crore"}
-              p2={"Assets Under Management"}
-              p3={" as on March 31, 2024"}
+              p1={"99.3%"}
+              p2={"Claim Settlement Ratio* "}
+              p3={"for 9M-FY2025"}
               first={true}
             />
             <SmallCard
               image={"star.svg"}
-              p1={"₹2.9 lakh crore"}
+              p1={"₹40,006 crores"}
               p2={"Assets Under Management"}
               p3={" as on March 31, 2024"}
             />
@@ -245,7 +245,7 @@ function Home() {
             />
             <SmallCard
               image={"umbrella.svg"}
-              p1={"₹2.9 lakh crore"}
+              p1={"9.69 crores"}
               p2={"Assets Under Management"}
               p3={" as on March 31, 2024"}
             />

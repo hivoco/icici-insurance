@@ -5,7 +5,7 @@ function AgeCard({ year, heading, subtext1, subtext2 ,onClick }) {
   return (
     <div onClick={onClick} className="rounded-3xl bg-white overflow-hidden ">
       <div className="bg-[url('/image/age-card.svg')] relative bg-cover bg-center h-28 w-full  text-black">
-        <strong className="absolute top-[10px] right-3.5 text-white text-[26px] font-bold">
+        <strong className="absolute top-[7px] right-3.5 text-white text-[26px] font-bold">
           {year}
         </strong>
         <strong className="w-full absolute bottom-2  left-1/2 transform -translate-x-1/2  text-white text-3xl font-extrabold ">
