@@ -306,7 +306,7 @@ function Home() {
               key={index}
               onClick={() => handlePulseCardClick(card.audio, index)}
               className={`cursor-pointer transition-transform duration-300 ease-in-out ${
-                activePulseCard === index ? "scale-110 shadow-lg shadow-gray-300" : "scale-100"
+                activePulseCard === index ? "scale-110 shadow-lg shadow-gray-300  bg-orange-200" : "scale-100"
               }`}
             >
               <PulseCard
