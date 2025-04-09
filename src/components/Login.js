@@ -89,7 +89,7 @@ function Login(props) {
       // Calculate age from DOB to suggest appropriate section
 
       // Store user data
-      localStorage.setItem(
+      sessionStorage.setItem(
         "iciciUserDetails",
         JSON.stringify({
           ...userDetails,

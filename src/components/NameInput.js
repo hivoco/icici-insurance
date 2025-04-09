@@ -12,7 +12,7 @@ function NameInput({userDetails, name, setUserDetails ,showWarning, setShowWarni
 
   const debounceTimerRef = useRef(null);
 
-  console.log(name, "name");
+  // console.log(name, "name");
 
   // Load prohibited words from the CSV file
   useEffect(() => {

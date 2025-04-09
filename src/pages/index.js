@@ -16,6 +16,17 @@ function Home() {
     router.push(path);
   };
 
+
+  useEffect(() => {
+    const userDetails = sessionStorage.getItem("iciciUserDetails");
+    if (userDetails) {
+      setIsOpenLogin(false);
+    } else {
+      setIsOpenLogin(true);
+    }
+    // console.log(user,"user");
+  }, []);
+
   const ageGroups = [
     {
       year: "20-30 Years",
@@ -57,12 +68,12 @@ function Home() {
 
   const audioRef = useRef(null);
   const secondAudioRef = useRef(null);
-  const [isOpenLogin, setIsOpenLogin] = useState(true);
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [firstAudioLink, setFirstAudioLink] = useState(null);
   const [secondAudioLink, setSecondAudioLink] = useState(
     "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/introline.mp3"
   );
-  const [showController, setShowController] = useState(true);
+  const [showController, setShowController] = useState(false);
   const [isPlayingFirst, setIsPlayingFirst] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -104,8 +115,10 @@ function Home() {
     setUsername(name);
     setIsOpenLogin(false);
 
+
     // Now fetch the audio with the user's name
     handlePostRequest("english", name);
+    setShowController(true)
 
     // Set a small timeout to ensure the audio is loaded before playing
     setTimeout(() => {
