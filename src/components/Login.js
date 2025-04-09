@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import Header from "./Header";
+import NameInput from "./NameInput";
 
 function Login(props) {
   // const [dob, setDob] = useState(new Date().toISOString().split("T")[0]); //today's date
@@ -22,6 +23,8 @@ function Login(props) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [isDateSelected, setIsDateSelected] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
+
 
   // const [nameError, setNameError] = useState("");
   // const [phoneError, setPhoneError] = useState("");
@@ -74,9 +77,16 @@ function Login(props) {
       phone: phone.length !== 10,
     };
 
-    if (!errors.name && !errors.dob && !errors.phone) {
+    const age = calculateAge(userDetails.dob);
+
+    if (age < 18) {
+      setErrorMessage("Age should be more than or equal to 18");
+      return
+    }
+
+
+    if (!errors.name && !errors.dob && !errors.phone && !showWarning) {
       // Calculate age from DOB to suggest appropriate section
-      const age = calculateAge(userDetails.dob);
 
       // Store user data
       localStorage.setItem(
@@ -89,8 +99,15 @@ function Login(props) {
       );
 
       // Pass the user data back to parent component
-      props.onLoginComplete(userDetails.name);
+
+
+        props.onLoginComplete(userDetails.name);      
+      
     } else {
+      if (showWarning) {
+        setErrorMessage("Please enter another name");
+      }
+
       // Show appropriate error message
       if (errors.name) {
         setErrorMessage("Please enter your name");
@@ -124,7 +141,8 @@ function Login(props) {
 
   return (
     // grid-rows-[auto_1fr_1fr_auto]
-    <div className="h-svh max-w-md mx-auto grid">
+    // <div className="h-svh max-w-md mx-auto grid">
+    <div className="h-svh w-full mx-auto max-w-md py-8.5 pb-1 font-Mulish grid gap-">
       <Header />
 
       <div
@@ -132,7 +150,7 @@ function Login(props) {
           // boxShadow: "0px -1px 32px 0px #0000001A",
           boxShadow: "0px -8px 16px -4px rgba(0,0,0,0.1)",
         }}
-        className="relative borde border-black "
+        className="relative borde border-black mt10"
       >
         <Image
           // className="bg-[#9A1B29]"
@@ -152,8 +170,17 @@ function Login(props) {
       </div>
 
       <div className="text-black space-y-3 grid px-9 borde border-black relative">
+        <NameInput
+          userDetails={userDetails}
+          name={userDetails.name}
+          setUserDetails={setUserDetails}
+
+          showWarning={showWarning}
+          setShowWarning={setShowWarning}
+        />
+
         {/* Name */}
-        <div className="flex flex-col space-y-1">
+        {/* <div className="flex flex-col space-y-1">
           <label className="font-Mulish font-medium   text-lg leading-[100%] tracking-normal">
             Name
           </label>
@@ -183,7 +210,7 @@ function Login(props) {
             placeholder="Enter Your Full Name"
             className="h-11 capitalize rounded-full border  border-[#9C9C9C] px-3.5 py-3 text-[15px] leading-[100%] tracking-normal placeholder-[#9C9C9C] focus:outline-2 font-semibold"
           />
-        </div>
+        </div> */}
 
         {/* DOB */}
         {/* <div className="flex flex-col space-y-1.5">
@@ -198,7 +225,7 @@ function Login(props) {
           />
         </div> */}
 
-        <div className="space-y-1">
+        <div className="space-y-0.5">
           <label
             htmlFor="dob"
             className="font-medium text-lg leading-[100%] tracking-normal"
@@ -249,7 +276,7 @@ function Login(props) {
         </div>
 
         {/* Phone Number */}
-        <div className="flex flex-col space-y-1">
+        <div className="flex flex-col space-y-0.5">
           <label
             htmlFor="phone"
             className="font-Mulish font-medium text-lg leading-[100%] tracking-normal"
@@ -289,8 +316,10 @@ function Login(props) {
           />
         </div>
 
+        {/* className={`  -bottom-3 left-2  */}
+
         <p
-          className={`absolute -bottom-2 left-10 text-black
+          className={`absolute text-xs text-[#AF292F] leading-[100%] font-medium -bottom-0 left-10
           ${errorMessage ? "opacity-100" : "opacity-0"}
           `}
         >
@@ -298,11 +327,11 @@ function Login(props) {
         </p>
       </div>
 
-      <div className=" mx-auto  mt-7.5 ">
+      <div className=" mx-auto  mt7.5 mt-3">
         {/* <Link className="mx-auto borde border-black" href={"#"}> */}
         <button
           onClick={handleClick}
-          className="mt5  max-h-13.5 mx-auto w-fit bg-[linear-gradient(90deg,_#F48120_0%,_#FCB62E_100%)] text-white font-extrabold text-[22px] leading-[100%] tracking-normal py-3 px-12 rounded-full transition "
+          className="mt5  h-12 mx-auto w-fit bg-[linear-gradient(90deg,_#F48120_0%,_#FCB62E_100%)] text-white font-extrabold text-[22px] leading-[100%] tracking-normal py-3 px-12 rounded-full transition "
         >
           Continue
         </button>
