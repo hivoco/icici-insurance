@@ -220,34 +220,13 @@ function Home() {
             <div className=" py-8">
               <div className="flex justify-center gap-3 mb-2">
                 <Image
-                  src="/image/7-card.png"
+                  src="/image/1.png"
                   alt="Picture of the author"
                   width={96}
                   height={96}
                 />
                 <Image
-                  src="/image/6-card.png"
-                  alt="Picture of the author"
-                  width={96}
-                  height={96}
-                />
-              </div>
-
-              <div className="flex justify-center gap-3 mb-2">
-                <Image
-                  src="/image/5-card.png"
-                  alt="Picture of the author"
-                  width={96}
-                  height={96}
-                />
-                <Image
-                  src="/image/4-card.png"
-                  alt="Picture of the author"
-                  width={96}
-                  height={96}
-                />
-                <Image
-                  src="/image/3-card.png"
+                  src="/image/2.png"
                   alt="Picture of the author"
                   width={96}
                   height={96}
@@ -256,13 +235,34 @@ function Home() {
 
               <div className="flex justify-center gap-3 mb-2">
                 <Image
-                  src="/image/2-card.png"
+                  src="/image/5.png"
                   alt="Picture of the author"
                   width={96}
                   height={96}
                 />
                 <Image
-                  src="/image/1-card.png"
+                  src="/image/4.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+                <Image
+                  src="/image/3.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+              </div>
+
+              <div className="flex justify-center gap-3 mb-2">
+                <Image
+                  src="/image/2.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+                <Image
+                  src="/image/1.png"
                   alt="Picture of the author"
                   width={96}
                   height={96}
