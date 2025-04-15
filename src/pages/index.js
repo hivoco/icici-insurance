@@ -16,7 +16,6 @@ function Home() {
     router.push(path);
   };
 
-
   useEffect(() => {
     const userDetails = sessionStorage.getItem("iciciUserDetails");
     if (userDetails) {
@@ -115,10 +114,9 @@ function Home() {
     setUsername(name);
     setIsOpenLogin(false);
 
-
     // Now fetch the audio with the user's name
     handlePostRequest("english", name);
-    setShowController(true)
+    setShowController(true);
 
     // Set a small timeout to ensure the audio is loaded before playing
     setTimeout(() => {
@@ -208,22 +206,75 @@ function Home() {
       {isOpenLogin ? (
         <Login onLoginComplete={handleLoginComplete} />
       ) : (
-        <div className="max-w-md mx-auto  text-white text-center mulish-font bg-[#EEEEE2]">
+        <div className="max-w-md mx-auto  text-white text-center mulish-font bg-gradient-to-b from-[#EDEEE2] to-[#FFFFFF]">
           <Header />
           <div
-            style={{ height: "calc(100vh - 170px)" }}
-            className="relative bg-[url('/image/home-bg_1.png')] bg-cover bg-center rounded-b-3xl px-4 py-11 pb-4 "
+            // style={{ height: "calc(100vh - 170px)" }}
+            className="  rounded-b-3xl px-4 py-11 pb-4 bg-white"
           >
-            <h3 className="font-bold text-4xl  mx-auto w-fit  tracking-normal">
+            <h3 className="font-bold text-4xl  mx-auto w-fit  tracking-normal text-[#004A80]">
               Secure your future <br /> with the right
               <br /> retirement plan
             </h3>
 
-            <div className="absolute bottom-4  left-1/2 transform -translate-x-1/2">
-              <Button title={"Read more"} />
+            <div className=" py-8">
+              <div className="flex justify-center gap-3 mb-2">
+                <Image
+                  src="/image/7-card.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+                <Image
+                  src="/image/6-card.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+              </div>
+
+              <div className="flex justify-center gap-3 mb-2">
+                <Image
+                  src="/image/5-card.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+                <Image
+                  src="/image/4-card.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+                <Image
+                  src="/image/3-card.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+              </div>
+
+              <div className="flex justify-center gap-3 mb-2">
+                <Image
+                  src="/image/2-card.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+                <Image
+                  src="/image/1-card.png"
+                  alt="Picture of the author"
+                  width={96}
+                  height={96}
+                />
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Button bg="#AF292F" title={"Read more"} />
             </div>
           </div>
-          <div className="px-8 py-16 flex mx-auto flex-col gap-8">
+          <div className="px-8 py-16 flex mx-auto flex-col gap-8 ">
             {ageGroups.map((card, index) => (
               <AgeCard
                 key={index}
@@ -236,7 +287,7 @@ function Home() {
             ))}
           </div>
 
-          <div className="px-8  flex mx-auto flex-col gap-8 ">
+          <div className="px-8  flex mx-auto flex-col gap-8  ">
             <SmallCard
               image={"bulb.svg"}
               p1={"99.3%"}

@@ -42,11 +42,11 @@ function Home() {
       title: "Annuity options",
       target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
     },
-    {
-      image: "terms.svg",
-      title: "Terms and Conditions",
-      target: "https://youtu.be/PL39I9PqVqI?si=Bf79Adwn9cJFgMRP",
-    },
+    // {
+    //   image: "terms.svg",
+    //   title: "Terms and Conditions",
+    //   target: "https://youtu.be/PL39I9PqVqI?si=Bf79Adwn9cJFgMRP",
+    // },
   ];
   const pulsecards = [
     {
@@ -205,41 +205,21 @@ function Home() {
   };
 
   return (
-    <div className="max-w-md mx-auto  text-white text-center mulish-font bg-[#EEEEE2]">
+    <div className="max-w-md mx-auto  text-white text-center mulish-font bg-white">
       <Header />
       <div
         style={{ height: "calc(100vh - 170px)" }}
-        className="relative bg-[url('/image/home-bg2_1.png')] bg-cover bg-center rounded-b-3xl px-4 py-11 pb-4 "
+        className="relative bg-[url('/image/second-bg.png')] bg-cover bg-no-repeat bg-center  px-4 py-11 pb-4 "
       ></div>
 
       <h2 className="px-6 pt-20 pb-10 text-[22px] font-bold text-[#AF292F]">
-        An annuity plan with a limited/regular premium payment option for a
-        secured annuity post retirement
+        Guaranteed retirement income that grows year after year
       </h2>
-
-      {/* <div className="px-6 ">
-        <div className="bg-white grid grid-cols-2   px-6 py-9 rounded-3xl">
-          {cards.map((card, index) => (
-            <ExploreCard
-              key={index}
-              image={card.image}
-              title={card.title}
-              isActive={selected === index}
-              onClick={() => {
-                setSelected(index);
-                // Call our function with the link or section ID
-                handleCardAction(card.target); // card.target could be "about-section" or "https://youtube.com/watch?v=..."
-              }}
-            />
-          ))}
-        </div>
-      </div> */}
 
       <div className="px-6">
         <div className="bg-white px-6 py-9 rounded-3xl">
           <div className="grid grid-cols-2 gap-4">
             {cards.map((card, index) => {
-              // Check if this is the last item and if there's an odd number of cards
               const isLastItemInOddGroup =
                 index === cards.length - 1 && cards.length % 2 !== 0;
 
@@ -306,7 +286,9 @@ function Home() {
               key={index}
               onClick={() => handlePulseCardClick(card.audio, index)}
               className={`cursor-pointer transition-transform duration-300 ease-in-out ${
-                activePulseCard === index ? "scale-110 shadow-lg shadow-gray-300  bg-orange-200" : "scale-100"
+                activePulseCard === index
+                  ? "scale-110 shadow-lg shadow-gray-300  bg-orange-200"
+                  : "scale-100"
               }`}
             >
               <PulseCard
