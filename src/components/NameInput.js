@@ -2,7 +2,13 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 import Papa from "papaparse";
 
-function NameInput({userDetails, name, setUserDetails ,showWarning, setShowWarning }) {
+function NameInput({
+  userDetails,
+  name,
+  setUserDetails,
+  showWarning,
+  setShowWarning,
+}) {
   const [prohibitedWords, setProhibitedWords] = useState([]);
   //   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -87,14 +93,14 @@ function NameInput({userDetails, name, setUserDetails ,showWarning, setShowWarni
         // Check if the input matches any prohibited word
         if (checkProhibitedWords(text)) {
           // Clear input and show warning
-        //   setUserDetails({ ...userDetails, name: "" });
+          //   setUserDetails({ ...userDetails, name: "" });
 
           setShowWarning(true);
 
           // Hide warning after 3 seconds
-        //   setTimeout(() => {
-        //     setShowWarning(false);
-        //   }, 3000);
+          //   setTimeout(() => {
+          //     setShowWarning(false);
+          //   }, 3000);
         }
       }, 500); // 300ms debounce delay - adjust as needed
     },
@@ -145,62 +151,19 @@ function NameInput({userDetails, name, setUserDetails ,showWarning, setShowWarni
 
   return (
     <div className="">
-      {/* <div style={{ marginBottom: "20px" }}>
-        <label
-          htmlFor="text-input"
-          style={{
-            display: "block",
-            marginBottom: "8px",
-            fontWeight: "500",
-          }}
-        >
-          Enter text:
-        </label>
-
-        <input
-          id="text-input"
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="Type here..."
-        />
-
-        {showWarning && (
-          <div
-            style={{
-              marginTop: "12px",
-              padding: "12px 16px",
-              backgroundColor: "#FFEBEE",
-              border: "1px solid #FFCDD2",
-              borderRadius: "6px",
-              color: "#D32F2F",
-              fontSize: "14px",
-              animation: "fadeIn 0.3s",
-            }}
-          >
-            <strong>Warning:</strong> Inappropriate content detected. Your input
-            has been cleared.
-          </div>
-        )}
-      </div> */}
-
-      <div className="flex flex-col space-y-0.5  border-black ">
-        <label className="font-Mulish font-medium   text-lg leading-[100%] tracking-normal">
-          Name
-        </label>
-
+      <div className="flex flex-col space-y-0.5   ">
         <div className="relative space-y-0.5">
           <input
             type="text"
-            name="name"
-            autoComplete="name"
+            // name="name"
+            // autoComplete="name"
             inputMode="text"
             value={name}
             //   onChange={handleInputChange}
             //   value={userDetails.name}
 
             onChange={(e) => {
-              setShowWarning(false)
+              setShowWarning(false);
               const value = e.target.value;
               const regex = /^[A-Za-z ]*$/; // Allows only letters and spaces
 
@@ -220,17 +183,25 @@ function NameInput({userDetails, name, setUserDetails ,showWarning, setShowWarni
               debouncedCheck(value);
             }}
             minLength={3}
-            maxLength={10}
+            maxLength={50}
             placeholder={"Enter Your Full Name"}
             onBlur={() => setNameError("")}
-            className={`h-11 w-full capitalize rounded-full border px-3.5 py-3 text-[15px] leading-[100%] tracking-normal placeholder-[#9C9C9C]  font-semibold
+            className={`h-11 w-full capitalize rounded-full border px-3.5 py-3 text-[15px] leading-[100%] tracking-normal placeholder:text-white  font-semibold focus:outline-2
+             focus:outline-none focus:ring-2
                 ${
                   showWarning
-                    ? "outline-[#AF292F]"
-                    : "border-[#9C9C9C] focus:outline-2"
+                    ? "outline-[#AF292F] focus:ring-red-200"
+                    : "border-[#D5D5D5] focus:ring-blue-200"
                 }
+              ${
+                userDetails.name
+                  ? "text-[#F48120] bg-white"
+                  : "bg-transparent text-white"
+              } 
                 `}
           />
+
+          {console.log(userDetails.name, "name")}
 
           <p
             className={` text-xs text-[#AF292F] leading-[100%] font-medium -bottom-3 left-2 
@@ -238,9 +209,9 @@ function NameInput({userDetails, name, setUserDetails ,showWarning, setShowWarni
           `}
           >
             {/* {showWarning} */}
-            *Text entered is not in line with the company's policy. Please enter another name"
+            *Text entered is not in line with the company's policy. Please enter
+            another name"
           </p>
-
         </div>
 
         {/* {showWarni

@@ -209,8 +209,10 @@ function Home() {
       <Header />
       <div
         style={{ height: "calc(100vh - 170px)" }}
-        className="relative bg-[url('/image/second-bg.png')] bg-cover bg-no-repeat bg-center  px-4 py-11 pb-4 "
-      ></div>
+        className="relative bg-[url('/image/second-bg.png')] bg-contain bg-no-repeat bg-center  px-4 py-11 pb-4 "
+      >
+
+      </div>
 
       <h2 className="px-6 pt-20 pb-10 text-[22px] font-bold text-[#AF292F]">
         Guaranteed retirement income that grows year after year
