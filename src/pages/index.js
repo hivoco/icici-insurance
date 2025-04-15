@@ -256,13 +256,13 @@ function Home() {
 
               <div className="flex justify-center gap-3 mb-2">
                 <Image
-                  src="/image/2.png"
+                  src="/image/7.png"
                   alt="Picture of the author"
                   width={96}
                   height={96}
                 />
                 <Image
-                  src="/image/1.png"
+                  src="/image/6.png"
                   alt="Picture of the author"
                   width={96}
                   height={96}
