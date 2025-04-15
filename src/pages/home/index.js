@@ -1,5 +1,7 @@
 import ExploreCard from "@/components/ExploreCard";
 import Header from "@/components/Header";
+import Popup from "@/components/Popup";
+
 import PulseCard from "@/components/PulseCard";
 import { X } from "lucide-react";
 import { useRouter } from "next/router";
@@ -27,6 +29,11 @@ function Home() {
       }
     }
   };
+
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  const openPopup = () => setIsPopupOpen(true);
+  const closePopup = () => setIsPopupOpen(false);
   const cards = [
     { image: "key-feature.svg", title: "Key feature", target: "key-feature" },
     {
@@ -47,18 +54,35 @@ function Home() {
     {
       image: "calculator.svg",
       title: "Calculator",
-      target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
+      // target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
     },
     {
       image: "headset.svg",
       title: "Contact Us",
-      target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
+      target: true,
     },
     // {
     //   image: "terms.svg",
     //   title: "Terms and Conditions",
     //   target: "https://youtu.be/PL39I9PqVqI?si=Bf79Adwn9cJFgMRP",
     // },
+  ];
+  const contact = [
+    {
+      image: "note.svg",
+      title: "Book an Appointment",
+      //  target: "key-feature"
+    },
+    {
+      image: "customer-care.svg",
+      title: "Speak with an Agent",
+      // target: "https://youtu.be/PL39I9PqVqI?si=Bf79Adwn9cJFgMRP",
+    },
+    {
+      image: "missed-call.svg",
+      title: "Give a Missed call",
+      // target: "https://youtu.be/8KkJgp5M7Bs?si=cWWdEHCGf1O200tp",
+    },
   ];
   const pulsecards = [
     {
@@ -75,12 +99,7 @@ function Home() {
       audio:
         "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/2.mp3",
     },
-    // {
-    //   image: "second-pulse.svg",
-    //   title: "<strong>100% guaranteed moneyback anytime</strong> ",
-    //   audio:
-    //     "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/2.mp3",
-    // },
+
     {
       image: "third-pulse.svg",
       title: "<strong>waiver of future premium</strong>",
@@ -209,6 +228,8 @@ function Home() {
           block: "start",
         });
       }
+    } else if (typeof target === "boolean") {
+      setIsPopupOpen(true);
     }
   };
 
@@ -223,9 +244,9 @@ function Home() {
   };
 
   const headerFunction = () => {
-     if (audioRef.current) {
-        audioRef.current.pause();
-     }
+    if (audioRef.current) {
+      audioRef.current.pause();
+    }
     router.push("/");
   };
 
@@ -236,11 +257,9 @@ function Home() {
         style={{ height: "calc(100vh - 170px)" }}
         className="relative bg-[url('/image/second-bg.png')] bg-contain bg-no-repeat bg-center  px-4 py-11 pb-4 "
       ></div>
-
       <h2 className="px-6 pt-20 pb-10 text-[22px] font-bold text-[#AF292F]">
         Guaranteed retirement income that grows year after year
       </h2>
-
       <div className="px-6">
         <div className="bg-white px-6 py-9 rounded-3xl">
           <div className="grid grid-cols-2 gap-4">
@@ -270,7 +289,37 @@ function Home() {
           </div>
         </div>
       </div>
+      x
+      {isPopupOpen && (
+        <Popup isOpen={isPopupOpen} onClose={closePopup} title="Sample Popup">
+          <h3 className="text-[#AF292F] text-2xl font-bold pb-5">Contact Us</h3>
+          <div className="grid grid-cols-2 gap-2">
+            {contact.map((card, index) => {
+              const isLastItemInOddGroup =
+                index === cards.length - 1 && cards.length % 2 !== 0;
 
+              return (
+                <div
+                  key={index}
+                  className={
+                    isLastItemInOddGroup ? "col-span-2 flex justify-center" : ""
+                  }
+                >
+                  <ExploreCard
+                    image={card.image}
+                    title={card.title}
+                    isActive={selected === index}
+                    onClick={() => {
+                      setSelected(index);
+                      handleCardAction(card.target);
+                    }}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </Popup>
+      )}
       {youtubeVideo && (
         <div className="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 p-4 flex flex-col items-center z-50">
           <div className="relative w-full max-w-md">
@@ -290,7 +339,6 @@ function Home() {
           </div>
         </div>
       )}
-
       <div id="key-feature" className="px-6 py-20">
         <div className={`flex items-center w-full pb-11 `}>
           <div

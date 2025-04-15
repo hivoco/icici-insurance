@@ -3,7 +3,14 @@ import Image from "next/image";
 function ExploreCard({ image, title, isActive, onClick }) {
   return (
     <div
-      className={`flex flex-col justify-center items-center mx-auto cursor-pointer transition-all duration-300  `}
+      className={`flex  flex-col justify-center items-center mx-auto cursor-pointer transition-all duration-300 
+          ${
+            isActive
+              ? "bg-gradient-to-t from-[#444444]/50 to-[#FFFFFF] text-white"
+              : "bg-transparent text-[#444444]"
+          } 
+      
+      `}
       onClick={onClick}
     >
       <div className="w-full flex justify-center items-center h-16 px-6 py-11 pb-14 bg-white relative">
@@ -17,11 +24,11 @@ function ExploreCard({ image, title, isActive, onClick }) {
       </div>
       <strong
         className={`text-lg font-bold p-2 w-full
-             ${
-               isActive
-                 ? "bg-gradient-to-t from-[#44444480] to-[#FFFFFF] text-white"
-                 : "bg-transparent text-[#444444]"
-             }
+            ${
+              isActive
+                ? " text-white"
+                : " text-[#444444]"
+            } 
         `}
       >
         {title}

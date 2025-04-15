@@ -16,16 +16,6 @@ function Home() {
     router.push(path);
   };
 
-  useEffect(() => {
-    const userDetails = sessionStorage.getItem("iciciUserDetails");
-    if (userDetails) {
-      setIsOpenLogin(false);
-    } else {
-      setIsOpenLogin(true);
-    }
-    // console.log(user,"user");
-  }, []);
-
   const ageGroups = [
     {
       year: "20-30 Years",
@@ -35,6 +25,8 @@ function Home() {
       subtext2:
         "Foram ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate leo et velit mattis, ac dapibus odio mattis.",
       href: "#",
+      min_age: 20,
+      max_age: 35,
     },
     {
       year: "35-45 Years",
@@ -44,6 +36,8 @@ function Home() {
       subtext2:
         "Foram ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate leo et velit mattis, ac dapibus odio mattis.",
       href: "#",
+      min_age: 35,
+      max_age: 45,
     },
     {
       year: "45-55 Years",
@@ -53,6 +47,8 @@ function Home() {
       subtext2:
         "Foram ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate leo et velit mattis, ac dapibus odio mattis.",
       href: "/home",
+      min_age: 45,
+      max_age: 55,
     },
     {
       year: "55+ Years",
@@ -62,6 +58,8 @@ function Home() {
       subtext2:
         "Foram ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate leo et velit mattis, ac dapibus odio mattis.",
       href: "#",
+      min_age: 55,
+      max_age: 120,
     },
   ];
 
@@ -75,7 +73,7 @@ function Home() {
   const [showController, setShowController] = useState(false);
   const [isPlayingFirst, setIsPlayingFirst] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
-
+  const [userDetails, setUserDetails] = useState(null);
   const handlePostRequest = async (lang = "english", name) => {
     // Set up the data to be sent in the body of the POST request
     const data = {
@@ -202,7 +200,19 @@ function Home() {
     }
   };
 
+  useEffect(() => {
+    const userDetails = sessionStorage.getItem("iciciUserDetails");
+    if (userDetails) {
+      setUserDetails(JSON.parse(userDetails));
+      setIsOpenLogin(false);
+    } else {
+      setIsOpenLogin(true);
+    }
+    // console.log(user,"user");
+  }, [isOpenLogin]);
+
   const headerFunction = () => {
+    sessionStorage.removeItem("iciciUserDetails");
     setIsOpenLogin(true);
   };
   return (
@@ -279,16 +289,21 @@ function Home() {
             </div>
           </div>
           <div className="px-8 py-16 flex mx-auto flex-col gap-8 ">
-            {ageGroups.map((card, index) => (
-              <AgeCard
-                key={index}
-                onClick={() => handleNavigation(card.href)}
-                year={card.year}
-                heading={card.heading}
-                subtext1={card.subtext1}
-                subtext2={card.subtext2}
-              />
-            ))}
+            {ageGroups.map((card, index) => {
+              return (
+                userDetails?.age >= card.min_age &&
+                userDetails?.age <= card.max_age && (
+                  <AgeCard
+                    key={index}
+                    onClick={() => handleNavigation(card.href)}
+                    year={card.year}
+                    heading={card.heading}
+                    subtext1={card.subtext1}
+                    subtext2={card.subtext2}
+                  />
+                )
+              );
+            })}
           </div>
 
           <div className="px-8  flex mx-auto flex-col gap-8  ">
