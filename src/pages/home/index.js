@@ -2,11 +2,13 @@ import ExploreCard from "@/components/ExploreCard";
 import Header from "@/components/Header";
 import PulseCard from "@/components/PulseCard";
 import { X } from "lucide-react";
+import { useRouter } from "next/router";
 
 import React, { useRef, useState } from "react";
 import YouTube from "react-youtube";
 
 function Home() {
+  const router = useRouter();
   const [selected, setSelected] = useState(null);
   const [activePulseCard, setActivePulseCard] = useState(null);
   const [youtubeVideo, setYoutubeVideo] = useState(null);
@@ -42,6 +44,16 @@ function Home() {
       title: "Annuity options",
       target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
     },
+    {
+      image: "calculator.svg",
+      title: "Calculator",
+      target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
+    },
+    {
+      image: "headset.svg",
+      title: "Contact Us",
+      target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
+    },
     // {
     //   image: "terms.svg",
     //   title: "Terms and Conditions",
@@ -57,51 +69,57 @@ function Home() {
         "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/1.mp3",
     },
     {
-      image: "second-pulse.svg",
+      image: "first-pulse.svg",
       title:
-        "<strong>Extended income</strong> to your spouse with Joint Life option",
+        "<strong>Extended income to your spouse with Joint Life option</strong> ",
       audio:
         "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/2.mp3",
     },
+    // {
+    //   image: "second-pulse.svg",
+    //   title: "<strong>100% guaranteed moneyback anytime</strong> ",
+    //   audio:
+    //     "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/2.mp3",
+    // },
     {
       image: "third-pulse.svg",
-      title: "Option to <strong>waiver of future premium</strong>",
+      title: "<strong>waiver of future premium</strong>",
       audio:
         "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/3.mp3",
     },
     {
-      image: "fourth-pulse.svg",
-      title: "Option to receive <strong>increasing income</strong>",
+      image: "six-pulse.svg",
+      title: "<strong>Guaranteed increasing income of 5% every year</strong>",
       audio:
         "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/4.mp3",
     },
-    {
-      image: "five-pulse.svg",
-      title:
-        "Option to <strong>withdraw funds</strong> after retirement begins",
-      audio:
-        "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/5.mp3",
-    },
-    {
-      image: "six-pulse.svg",
-      title:
-        "Option to receive annuity amount on a <strong>monthly, quarterly, half-yearly or yearly</strong> basis",
-      audio:
-        "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/6.mp3",
-    },
-    {
-      image: "seven-pulse.svg",
-      title:
-        "<strong>Save the date</strong> feature to receive annuity on any date of your choice",
-      audio:
-        "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/7.mp3",
-    },
-    {
-      image: "eigth-pulse.svg",
-      title: "<strong>Top up</strong> option to save more",
-      audio:
-        "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/8.mp3",
-    },
+    // {
+    //   image: "five-pulse.svg",
+    //   title:
+    //     "Option to <strong>withdraw funds</strong> after retirement begins",
+    //   audio:
+    //     "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/5.mp3",
+    // },
+    // {
+    //   image: "six-pulse.svg",
+    //   title:
+    //     "Option to receive annuity amount on a <strong>monthly, quarterly, half-yearly or yearly</strong> basis",
+    //   audio:
+    //     "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/6.mp3",
+    // },
+    // {
+    //   image: "seven-pulse.svg",
+    //   title:
+    //     "<strong>Save the date</strong> feature to receive annuity on any date of your choice",
+    //   audio:
+    //     "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/7.mp3",
+    // },
+    // {
+    //   image: "eigth-pulse.svg",
+    //   title: "<strong>Top up</strong> option to save more",
+    //   audio:
+    //     "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/8.mp3",
+    // },
   ];
 
   // Add this function to your component or utils
@@ -204,15 +222,20 @@ function Home() {
     },
   };
 
+  const headerFunction = () => {
+     if (audioRef.current) {
+        audioRef.current.pause();
+     }
+    router.push("/");
+  };
+
   return (
     <div className="max-w-md mx-auto  text-white text-center mulish-font bg-white">
-      <Header />
+      <Header text={"Return to home page"} onClick={headerFunction} />
       <div
         style={{ height: "calc(100vh - 170px)" }}
         className="relative bg-[url('/image/second-bg.png')] bg-contain bg-no-repeat bg-center  px-4 py-11 pb-4 "
-      >
-
-      </div>
+      ></div>
 
       <h2 className="px-6 pt-20 pb-10 text-[22px] font-bold text-[#AF292F]">
         Guaranteed retirement income that grows year after year

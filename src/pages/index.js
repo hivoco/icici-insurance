@@ -201,13 +201,17 @@ function Home() {
       }
     }
   };
+
+  const headerFunction = () => {
+    setIsOpenLogin(true);
+  };
   return (
     <>
       {isOpenLogin ? (
         <Login onLoginComplete={handleLoginComplete} />
       ) : (
         <div className="max-w-md mx-auto  text-white text-center mulish-font bg-gradient-to-b from-[#EDEEE2] to-[#FFFFFF]">
-          <Header />
+          <Header text={"Return to login page"} onClick={headerFunction} />
           <div
             // style={{ height: "calc(100vh - 170px)" }}
             className="  rounded-b-3xl px-4 py-11 pb-4 bg-white"

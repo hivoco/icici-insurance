@@ -201,8 +201,6 @@ function NameInput({
                 `}
           />
 
-          {console.log(userDetails.name, "name")}
-
           <p
             className={` text-xs text-[#AF292F] leading-[100%] font-medium -bottom-3 left-2 
           ${showWarning ? "block" : "hidden"}
