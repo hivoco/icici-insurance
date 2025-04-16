@@ -15,7 +15,7 @@ function Header({ text,onClick}) {
       </Link>
       <span
         onClick={onClick}
-        className="absolute bottom-0 right-2 text-base text-[#AF292F] underline"
+        className="absolute cursor-pointer bottom-0 right-2 text-base text-[#AF292F] underline"
       >
         {text}
       </span>

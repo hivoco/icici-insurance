@@ -76,12 +76,12 @@ function Home() {
     {
       image: "customer-care.svg",
       title: "Speak with an Agent",
-      // target: "https://youtu.be/PL39I9PqVqI?si=Bf79Adwn9cJFgMRP",
+      target: "https://www.iciciprulife.com/contact-us/send-me-an-advisor.html",
     },
     {
       image: "missed-call.svg",
       title: "Give a Missed call",
-      // target: "https://youtu.be/8KkJgp5M7Bs?si=cWWdEHCGf1O200tp",
+      target: "022-33811777",
     },
   ];
   const pulsecards = [
@@ -179,7 +179,53 @@ function Home() {
   //   }
   // };
 
+  function isValidNonYouTubeUrl(input) {
+    try {
+      // Check if input is a string
+      if (typeof input !== 'string') {
+        return false;
+      }
+  
+      // Create a URL object to validate the URL
+      const url = new URL(input);
+  
+      // Check if the protocol is http or https
+      if (url.protocol !== 'http:' && url.protocol !== 'https:') {
+        return false;
+      }
+  
+      // Check if it's NOT a YouTube URL
+      const youtubeHostnames = [
+        'youtube.com', 
+        'www.youtube.com', 
+        'youtu.be', 
+        'm.youtube.com'
+      ];
+  
+      return !youtubeHostnames.some(hostname => 
+        url.hostname === hostname || url.hostname.endsWith('.' + hostname)
+      );
+    } catch (error) {
+      // If URL constructor throws an error, it's an invalid URL
+      return false;
+    }
+  }
+  
+
   const handleCardAction = (target) => {
+
+    if (isValidNonYouTubeUrl(target)) {
+      // console.log(target);
+      // console.log(typeof target, "target");
+      window.open(target, "_blank");
+    }
+
+    if (typeof target === "string" && target.startsWith("022")) {
+      window.location.href = `tel:${target}`;
+      console.log("miss call");
+    }
+    
+
     // Check if the target is a YouTube link
     if (
       typeof target === "string" &&
@@ -228,9 +274,16 @@ function Home() {
           block: "start",
         });
       }
-    } else if (typeof target === "boolean") {
+    } 
+
+    // else if (typeof target === "string" && target.startsWith("022")) {
+    //   console.log("miss call");
+    // }
+        
+    else if (typeof target === "boolean") {
       setIsPopupOpen(true);
     }
+
   };
 
   // Make sure your opts are set correctly
@@ -374,7 +427,7 @@ function Home() {
         </div>
       </div>
       <audio ref={audioRef} className="hidden">
-        <source src="" type="audio/mpeg" />
+        <source  type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>
