@@ -256,7 +256,65 @@ function Home() {
         block: "start",
       });
     }
+
+    playSequentialAudio(
+      "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/pre-retirement.mp3",
+      "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/know-more.mp3",
+      300
+    );
   };
+
+  function playSequentialAudio(
+    firstAudioUrl,
+    secondAudioUrl,
+    pauseDuration = 300
+  ) {
+    return new Promise((resolve, reject) => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        secondAudioRef.current.pause();
+        setShowController(false)
+      }
+      // Create first audio element
+      const firstAudio = new Audio(firstAudioUrl);
+
+      // Set up first audio ended event
+      firstAudio.addEventListener("ended", () => {
+        console.log("First audio ended, pausing for", pauseDuration, "ms");
+
+        // Wait for the specified pause duration
+        setTimeout(() => {
+          // Create and play second audio
+          const secondAudio = new Audio(secondAudioUrl);
+
+          // Resolve the promise when second audio ends
+          secondAudio.addEventListener("ended", () => {
+            console.log("Second audio ended");
+            resolve();
+          });
+
+          // Handle errors for second audio
+          secondAudio.addEventListener("error", (error) => {
+            console.error("Error playing second audio:", error);
+            reject(error);
+          });
+
+          // Play second audio
+          secondAudio.play().catch(reject);
+        }, pauseDuration);
+      });
+
+      // Handle errors for first audio
+      firstAudio.addEventListener("error", (error) => {
+        console.error("Error playing first audio:", error);
+        reject(error);
+      });
+
+      // Play first audio
+      firstAudio.play().catch(reject);
+    });
+  }
+
   return (
     <>
       {isOpenLogin ? (
@@ -333,7 +391,11 @@ function Home() {
               <Button bg="#AF292F" title={"Read more"} />
             </div>
           </div>
-          <div className="px-8 py-16 flex mx-auto flex-col gap-8 ">
+          <div
+            ref={ageCardRef}
+            id="age-card"
+            className="px-8 py-16 flex mx-auto flex-col gap-8 "
+          >
             {ageGroups.map((card, index) => {
               return (
                 45 >= card.min_age &&
@@ -346,8 +408,6 @@ function Home() {
                     subtext1={card.subtext1}
                     subtext2={card.subtext2}
                     playAudio={() => playAudio(card.audio)}
-                    ref={ageCardRef}
-                    id="age-card"
                   />
                 )
               );
@@ -412,7 +472,7 @@ function Home() {
           Your browser does not support the audio tag.
         </audio>
       </div>
-      <FloatingBackButton onClick={() => headerFunction()} />
+      {!isOpenLogin && <FloatingBackButton onClick={() => headerFunction()} />}
     </>
   );
 }

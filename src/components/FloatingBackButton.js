@@ -7,7 +7,7 @@ export default function FloatingBackButton({ onClick }) {
   useEffect(() => {
     const handleScroll = () => {
       // Show button when user scrolls down 300px
-      if (window.scrollY > 200) {
+      if (window.scrollY > 150) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
