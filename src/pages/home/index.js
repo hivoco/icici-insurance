@@ -1,12 +1,15 @@
 import ExploreCard from "@/components/ExploreCard";
+import FloatingBackButton from "@/components/FloatingBackButton";
 import Header from "@/components/Header";
 import Popup from "@/components/Popup";
 
 import PulseCard from "@/components/PulseCard";
+import { useAudio } from "@/context/AudioContext";
 import { X } from "lucide-react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 
 function Home() {
@@ -31,9 +34,37 @@ function Home() {
   };
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isQRPopupOpen, setIsQRPopupOpen] = useState(false);
+  const { shouldPlayAudio, setShouldPlayAudio } = useAudio();
 
-  const openPopup = () => setIsPopupOpen(true);
+  useEffect(() => {
+    // If we navigated here with the intent to play audio
+    if (shouldPlayAudio && audioRef.current) {
+      audioRef.current.src =
+        "https://videoforinteractivedemons.s3.ap-south-1.amazonaws.com/bank_audio/retirement.mp3";
+      // Try to play the audio
+      const playPromise = audioRef.current.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            // Audio started playing successfully
+            console.log("Audio is playing");
+          })
+          .catch((error) => {
+            // Auto-play was prevented
+            console.error("Audio play failed:", error);
+          })
+          .finally(() => {
+            // Reset the flag after attempting to play
+            setShouldPlayAudio(false);
+          });
+      }
+    }
+  }, [shouldPlayAudio, setShouldPlayAudio]);
+
   const closePopup = () => setIsPopupOpen(false);
+  const closePopupQR = () => setIsQRPopupOpen(false);
   const cards = [
     { image: "key-feature.svg", title: "Key feature", target: "key-feature" },
     {
@@ -48,8 +79,9 @@ function Home() {
     },
     {
       image: "annuity-option.svg",
-      title: "Annuity options",
-      target: "https://youtu.be/Kc78BCOw4I4?si=CPtuTMyOSIgU9cIm",
+      title: "Buy Online",
+      target:
+        "https://www.iciciprulife.com/money-back-endowment-plans/future-perfect-savings-plan-calculator.html?UID=1060",
     },
     {
       image: "calculator.svg",
@@ -61,27 +93,27 @@ function Home() {
       title: "Contact Us",
       target: true,
     },
-    // {
-    //   image: "terms.svg",
-    //   title: "Terms and Conditions",
-    //   target: "https://youtu.be/PL39I9PqVqI?si=Bf79Adwn9cJFgMRP",
-    // },
+    {
+      image: "qr.png",
+      title: "Scan QR",
+      target: "openqr",
+    },
   ];
   const contact = [
     {
       image: "note.svg",
       title: "Book an Appointment",
-      //  target: "key-feature"
+      target: "https://www.iciciprulife.com/contact-us/send-me-an-advisor.html",
     },
     {
       image: "customer-care.svg",
       title: "Speak with an Agent",
-      // target: "https://youtu.be/PL39I9PqVqI?si=Bf79Adwn9cJFgMRP",
+      target: "https://www.iciciprulife.com/contact-us/send-me-an-advisor.html",
     },
     {
       image: "missed-call.svg",
       title: "Give a Missed call",
-      // target: "https://youtu.be/8KkJgp5M7Bs?si=cWWdEHCGf1O200tp",
+      target: "022-33811777",
     },
   ];
   const pulsecards = [
@@ -179,7 +211,105 @@ function Home() {
   //   }
   // };
 
+  // const handleCardAction = (target) => {
+  //   // Check if the target is a YouTube link
+  //   if (
+  //     typeof target === "string" &&
+  //     (target.includes("youtube.com") || target.includes("youtu.be"))
+  //   ) {
+  //     // Extract video ID
+  //     let videoId = "";
+
+  //     if (target.includes("youtube.com/watch?v=")) {
+  //       videoId = target.split("v=")[1].split("&")[0];
+  //     } else if (target.includes("youtu.be/")) {
+  //       videoId = target.split("youtu.be/")[1].split("?")[0];
+  //     }
+
+  //     if (videoId) {
+  //       // Set the YouTube video ID to show the player
+  //       setYoutubeVideo(videoId);
+  //       return;
+  //     }
+
+  //     // Fallback to opening in new tab if we couldn't extract the ID
+  //     window.open(target, "_blank", "noopener,noreferrer");
+  //   }
+  //   // Check if it's a section ID on the page
+  //   else if (typeof target === "string" && target.startsWith("#")) {
+  //     // Remove the # if it exists at the beginning
+  //     const sectionId = target.startsWith("#") ? target.substring(1) : target;
+  //     const element = document.getElementById(sectionId);
+
+  //     if (element) {
+  //       // Smooth scroll to the element
+  //       element.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "start",
+  //       });
+  //     }
+  //   }
+  //   // Directly use element ID without # prefix
+  //   else if (typeof target === "string") {
+  //     const element = document.getElementById(target);
+
+  //     if (element) {
+  //       // Smooth scroll to the element
+  //       element.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "start",
+  //       });
+  //     }
+  //   } else if (typeof target === "boolean") {
+  //     setIsPopupOpen(true);
+  //   }
+  // };
+
+  function isValidNonYouTubeUrl(input) {
+    try {
+      // Check if input is a string
+      if (typeof input !== "string") {
+        return false;
+      }
+
+      // Create a URL object to validate the URL
+      const url = new URL(input);
+
+      // Check if the protocol is http or https
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
+        return false;
+      }
+
+      // Check if it's NOT a YouTube URL
+      const youtubeHostnames = [
+        "youtube.com",
+        "www.youtube.com",
+        "youtu.be",
+        "m.youtube.com",
+      ];
+
+      return !youtubeHostnames.some(
+        (hostname) =>
+          url.hostname === hostname || url.hostname.endsWith("." + hostname)
+      );
+    } catch (error) {
+      // If URL constructor throws an error, it's an invalid URL
+      return false;
+    }
+  }
+
   const handleCardAction = (target) => {
+    if (isValidNonYouTubeUrl(target)) {
+      window.open(target, "_blank");
+    }
+
+    if (typeof target === "string" && target.startsWith("022")) {
+      window.location.href = `tel:${target}`;
+    }
+    if (typeof target === "string" && target === "openqr") {
+      setIsQRPopupOpen(true);
+    }
+
     // Check if the target is a YouTube link
     if (
       typeof target === "string" &&
@@ -228,7 +358,12 @@ function Home() {
           block: "start",
         });
       }
-    } else if (typeof target === "boolean") {
+    }
+
+    // else if (typeof target === "string" && target.startsWith("022")) {
+    //   console.log("miss call");
+    // }
+    else if (typeof target === "boolean") {
       setIsPopupOpen(true);
     }
   };
@@ -247,6 +382,7 @@ function Home() {
     if (audioRef.current) {
       audioRef.current.pause();
     }
+    // sessionStorage.removeItem("iciciUserDetails");
     router.push("/");
   };
 
@@ -254,14 +390,14 @@ function Home() {
     <div className="max-w-md mx-auto  text-white text-center mulish-font bg-white">
       <Header text={"Return to home page"} onClick={headerFunction} />
       <div
-        style={{ height: "calc(100vh - 170px)" }}
+        style={{ height: "calc(100vh - 300px)" }}
         className="relative bg-[url('/image/second-bg.png')] bg-contain bg-no-repeat bg-center  px-4 py-11 pb-4 "
       ></div>
-      <h2 className="px-6 pt-20 pb-10 text-[22px] font-bold text-[#AF292F]">
+      <h2 className="px-6 pt-8 pb-8 text-[22px] font-bold text-[#AF292F]">
         Guaranteed retirement income that grows year after year
       </h2>
       <div className="px-6">
-        <div className="bg-white px-6 py-9 rounded-3xl">
+        <div className="bg-white px-6 py-2 rounded-3xl">
           <div className="grid grid-cols-2 gap-4">
             {cards.map((card, index) => {
               const isLastItemInOddGroup =
@@ -320,6 +456,21 @@ function Home() {
           </div>
         </Popup>
       )}
+      {isQRPopupOpen && (
+        <Popup
+          isOpen={isQRPopupOpen}
+          onClose={closePopupQR}
+          title="Sample Popup"
+        >
+          <Image
+            src={`/image/QR.jpg`}
+            alt="Picture of the author"
+            width={300}
+            height={300}
+            className="object-contain rounded-lg pb-4"
+          />
+        </Popup>
+      )}
       {youtubeVideo && (
         <div className="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 p-4 flex flex-col items-center z-50">
           <div className="relative w-full max-w-md">
@@ -339,7 +490,7 @@ function Home() {
           </div>
         </div>
       )}
-      <div id="key-feature" className="px-6 py-20">
+      <div id="key-feature" className="px-6 py-5">
         <div className={`flex items-center w-full pb-11 `}>
           <div
             className={`flex-grow h-px bg-gradient-to-r from-[#F48120] to-[#FCB62E]`}
@@ -373,8 +524,9 @@ function Home() {
           ))}
         </div>
       </div>
+      <FloatingBackButton onClick={() => headerFunction()} />
       <audio ref={audioRef} className="hidden">
-        <source src="" type="audio/mpeg" />
+        <source type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>

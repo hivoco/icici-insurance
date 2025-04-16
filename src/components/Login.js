@@ -78,10 +78,10 @@ function Login(props) {
 
     const age = calculateAge(userDetails.dob);
 
-    if (age < 20) {
-      setErrorMessage("Age should be more than or equal to 20");
-      return;
-    }
+    // if (age < 20) {
+    //   setErrorMessage("Age should be more than or equal to 20");
+    //   return;
+    // }
 
     if (!errors.name && !errors.dob && !showWarning) {
       // Calculate age from DOB to suggest appropriate section

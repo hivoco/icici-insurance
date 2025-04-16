@@ -1,9 +1,11 @@
 import AgeCard from "@/components/AgeCard";
 import AudioControls from "@/components/audio-controls-component-animated";
+import FloatingBackButton from "@/components/FloatingBackButton";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Login from "@/components/Login";
 import SmallCard from "@/components/SmallCard";
+import { useAudio } from "@/context/AudioContext";
 import Button from "@/element/Button";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -11,8 +13,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 function Home() {
   const router = useRouter();
-
+  const { setShouldPlayAudio } = useAudio();
   const handleNavigation = (path) => {
+    setShouldPlayAudio(true);
     router.push(path);
   };
 
@@ -43,9 +46,9 @@ function Home() {
       year: "45-55 Years",
       heading: "Pre-Retirement",
       subtext1:
-        "Foram ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate leo et velit mattis, ac dapibus odio mattis.",
+        "You have established a sizeable source of income. It’s recommended to increase your contributions to your retirement plan.",
       subtext2:
-        "Foram ipsum dolor sit amet, consectetur adipiscing elit. Nam vulputate leo et velit mattis, ac dapibus odio mattis.",
+        "ICICI Pru Guaranteed^^ Pension Plan Flexi, a plan designed to help you gradually build a retirement savings and get a lifelong guaranteed^^ income post retirement.",
       href: "/home",
       min_age: 45,
       max_age: 55,
@@ -65,6 +68,7 @@ function Home() {
 
   const audioRef = useRef(null);
   const secondAudioRef = useRef(null);
+  const ageCardRef = useRef(null);
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const [firstAudioLink, setFirstAudioLink] = useState(null);
   const [secondAudioLink, setSecondAudioLink] = useState(
@@ -74,6 +78,7 @@ function Home() {
   const [isPlayingFirst, setIsPlayingFirst] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [commonAudio, setCommonAudio] = useState(null);
   const handlePostRequest = async (lang = "english", name) => {
     // Set up the data to be sent in the body of the POST request
     const data = {
@@ -162,7 +167,6 @@ function Home() {
   };
 
   const togglePlayPause = () => {
-    console.log(":");
     if (!audioRef.current || !firstAudioLink) return;
 
     if (isPlaying) {
@@ -215,16 +219,54 @@ function Home() {
     sessionStorage.removeItem("iciciUserDetails");
     setIsOpenLogin(true);
   };
+
+  const playAudio = (url) => {
+    if (isPlaying) {
+      // If audio is playing, pause it
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setIsPlaying(false);
+      // setShowController(false);
+      return;
+    }
+    if (commonAudio) {
+      commonAudio.pause();
+      commonAudio.currentTime = 0; // Reset the playback position
+    }
+
+    // Create and play the new audio
+    const audio = new Audio(url);
+    audio
+      .play()
+      .then(() => {
+        // Store the reference to the currently playing audio
+        setCommonAudio(audio);
+      })
+      .catch((error) => {
+        console.error("Error playing audio:", error);
+      });
+  };
+
+  const scrollParticularSection = () => {
+    if (ageCardRef.current) {
+      // Scroll to section2 with smooth behavior
+      ageCardRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
   return (
     <>
       {isOpenLogin ? (
         <Login onLoginComplete={handleLoginComplete} />
       ) : (
         <div className="max-w-md mx-auto  text-white text-center mulish-font bg-gradient-to-b from-[#EDEEE2] to-[#FFFFFF]">
-          <Header text={"Return to login page"} onClick={headerFunction} />
+          <Header onClick={headerFunction} />
           <div
             // style={{ height: "calc(100vh - 170px)" }}
-            className="  rounded-b-3xl px-4 py-11 pb-4 bg-white"
+            className="  rounded-b-3xl px-4 py-2 pb-4 bg-white"
           >
             <h3 className="font-bold text-4xl  mx-auto w-fit  tracking-normal text-[#004A80]">
               Secure your future <br /> with the right
@@ -284,15 +326,18 @@ function Home() {
               </div>
             </div>
 
-            <div className="text-center">
+            <div
+              onClick={() => scrollParticularSection()}
+              className="text-center "
+            >
               <Button bg="#AF292F" title={"Read more"} />
             </div>
           </div>
           <div className="px-8 py-16 flex mx-auto flex-col gap-8 ">
             {ageGroups.map((card, index) => {
               return (
-                userDetails?.age >= card.min_age &&
-                userDetails?.age <= card.max_age && (
+                45 >= card.min_age &&
+                55 <= card.max_age && (
                   <AgeCard
                     key={index}
                     onClick={() => handleNavigation(card.href)}
@@ -300,6 +345,9 @@ function Home() {
                     heading={card.heading}
                     subtext1={card.subtext1}
                     subtext2={card.subtext2}
+                    playAudio={() => playAudio(card.audio)}
+                    ref={ageCardRef}
+                    id="age-card"
                   />
                 )
               );
@@ -364,6 +412,7 @@ function Home() {
           Your browser does not support the audio tag.
         </audio>
       </div>
+      <FloatingBackButton onClick={() => headerFunction()} />
     </>
   );
 }
