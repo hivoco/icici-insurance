@@ -2,16 +2,16 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
-import Header from "./Header";
-import NameInput from "./NameInput";
+import React, { useEffect, useRef, useState } from "react";
+import Header from "../components/Header";
+import NameInput from "../components/NameInput";
+import ScrollableCards from "@/components/ScrollableCards";
 
 function Login(props) {
   // const [dob, setDob] = useState(new Date().toISOString().split("T")[0]); //today's date
   // const [name, setName] = useState("");
-
+  const inputContainerRef = useRef(null);
   const [phone, setPhone] = useState("");
-
   const [userDetails, setUserDetails] = useState({
     name: "",
     dob: new Date().toISOString().split("T")[0],
@@ -135,51 +135,71 @@ function Login(props) {
     return age;
   };
 
+  useEffect(() => {
+    const input = inputContainerRef.current;
+    if (!input) return;
+    let timer
+    input.addEventListener("click", () => {
+      timer = setTimeout(() => {
+        input.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 300); // wait for keyboard to appear
+    });
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
   return (
     // grid-rows-[auto_1fr_1fr_auto]
-    <div className="h-svh w-full mx-auto max-w-md pt-6 font-Mulish grid grid-rows-[auto_1fr]">
+    <div className="min-h-svh w-full mx-auto max-w-md py-11 pt-0 font-Mulish grid grid-rows-[auto_1fr]">
       <Header />
 
-      {/* // wrapper */}
-      <div
-        // style={{ height: "calc(100vh - 18vh)" }}
+      {/* <div
         className=" bg-[#F0F1F1] h-full   px-5 pb-7 pt-2 flex flex-col justify-center"
-      >
-        {/* container of all elemets */}
-        <div className="">
-          <div className=" flex items-center w-full hfull justify-center">
-            <h2 className="font-Mulish font-medium text-2xl leading-[] tracking-normal text-[#004A80]">
-              Unlock the <br /> secrets to <br />{" "}
-              <span className="font-extrabold"> securing</span> your <br />
-              <span className="font-extrabold"> retirement</span>
-            </h2>
+      > */}
+      {/* container of all elements */}
+      {/* <div className=""> */}
+      <div className="relative ">
+        <div className="absolute top-4 left-6 font-Mulish font-bold text-white">
+          <h2 className="text-base leading-5"> Your dream</h2>
+          <h2 className="text-3xl leading-9"> retirement,</h2>
+          <h2 className="text-base leading-5"> starts with the right</h2>
+          <h2 className="text-3xl leading-9"> plan</h2>
+        </div>
 
-            <Image
-              src={"/image/retirement-planning.png"}
-              width={162}
-              height={231}
-              alt="retirement-planning"
-              priority={true}
-            />
-          </div>
+        <Image
+          className="w-full h-auto"
+          src={"/image/Page-1_Image.png"}
+          width={375}
+          height={254}
+          alt="retirement-planning"
+          priority={true}
+        />
+      </div>
 
-          <div
-            style={{
-              background:
-                "linear-gradient(180deg, #F48120 0%, #F48120 63.46%, #FCB62E 100%)",
-            }}
-            className="text-white  space-y-7 py-7 px-8 borde border-black  rounded-2xl"
-          >
-            <h2 className="font-normal text-lg leading-[100%] tracking-normal text-center">
+      <div className=" font-bold text-sm leading-4.5 tracking-normal text-center text-[#004A80] pt-7 pb-8.5 px-6">
+        Please share your details and we’ll guide you to choose the ICICI
+        Prudential Life Retirement plan that best suits your retirement
+      </div>
+
+      <section className="w-4/5 mx-auto">
+        <div className="border-t-2 border-black/30 w-4/5 mx-auto pb-7"></div>
+
+        <div
+          ref={inputContainerRef}
+          className="w-full mx-auto  text-white space-y-7 p-6 borde border-black  rounded-3xl bg-[#F48120]"
+        >
+          {/* <h2 className="font-normal text-lg leading-[100%] tracking-normal text-center">
               Share your details to help us
               <br />
               tailor your retirement planning
-            </h2>
+            </h2> */}
 
-            <div
-              className={`grid h-full
-            ${showWarning ? "gap-1.5" : "gap-4"}`}
-            >
+          <div
+            className={`grid h-full
+            ${showWarning ? "gap-1.5" : "gap-5"}`}
+          >
+            <div className="grid gap-2.5">
               <NameInput
                 userDetails={userDetails}
                 name={userDetails.name}
@@ -249,19 +269,18 @@ function Login(props) {
             </div>
           )} */}
               </div>
-
-              <div className=" mx-auto ">
-                <button
-                  onClick={handleClick}
-                  className="mt5 cursor-pointer bg-white h-12 mx-auto w-fit  text-[#AF292F]  font-extrabold text-[22px] leading-[100%] tracking-normal py-3 px-12 rounded-full transition "
-                >
-                  Continue
-                </button>
-              </div>
             </div>
 
-            {/* Phone Number */}
-            {/* <div className="flex flex-col space-y-0.5">
+            <button
+              onClick={handleClick}
+              className="mt5 cursor-pointer bg-white h-10 mx-auto w-fit  text-[#004A80]  font-extrabold text-lg leading-[100%] tracking-normal  px-12 rounded-full transition "
+            >
+              Submit
+            </button>
+          </div>
+
+          {/* Phone Number */}
+          {/* <div className="flex flex-col space-y-0.5">
             <label
               htmlFor="phone"
               className="font-Mulish font-medium text-lg leading-[100%] tracking-normal"
@@ -300,7 +319,7 @@ function Login(props) {
               className="rounded-full h-11 border border-[#9C9C9C] px-3.5 py-3 text-[15px] leading-[100%] tracking-normal placeholder-[#9C9C9C] focus:outline-2 font-semibold"
             />
           </div> */}
-            {/* 
+          {/* 
           <p
             className={`absolute text-xs text-[#AF292F] leading-[100%] font-medium -bottom-0 left-10
           ${errorMessage ? "opacity-100" : "opacity-0"}
@@ -308,9 +327,28 @@ function Login(props) {
           >
             {errorMessage}
           </p> */}
-          </div>
         </div>
+
+        <div className="border-b-2 border-black/30 w-4/5 mx-auto pt-8 mb-8"></div>
+      </section>
+      {/* margin is outside border , padding is inside the border */}
+
+      <div className="flex flex-col gap-8.5">
+        <div className="text-center w-full flex flex-col gap-5">
+          <h2 className="font-bold text-sm text-[#004A80]">Did you know?</h2>
+          <ScrollableCards />
+        </div>
+
+        <button
+          onClick={() => {}}
+          className="cursor-pointer bg-[#E5E5E5] border !border-black/50 h-10 mx-auto w-fit min-w-36  text-[#004A80]  font-extrabold text-lg leading-[100%] tracking-normal  px-7 rounded-full transition "
+        >
+          Disclaimers{" "}
+        </button>
       </div>
+
+      {/* </div> */}
+      {/* </div> */}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import ExploreCard from "@/components/ExploreCard";
 import Header from "@/components/Header";
 import Popup from "@/components/Popup";
-
 import PulseCard from "@/components/PulseCard";
 import { X } from "lucide-react";
 import { useRouter } from "next/router";

@@ -184,7 +184,7 @@ function NameInput({
             }}
             minLength={3}
             maxLength={50}
-            placeholder={"Enter Your Full Name"}
+            placeholder={"Enter Your Full Name*"}
             onBlur={() => setNameError("")}
             className={`h-11 w-full capitalize rounded-full border px-3.5 py-3 text-[15px] leading-[100%] tracking-normal placeholder:text-white  font-semibold focus:outline-2
              focus:outline-none focus:ring-2
