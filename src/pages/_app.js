@@ -1,3 +1,4 @@
+import { AudioProvider } from "@/context/AudioContext";
 import "@/styles/globals.css";
 
 import { Inter, Mulish } from "next/font/google";
@@ -17,9 +18,11 @@ const mulish = Mulish({
 
 export default function App({ Component, pageProps }) {
   return (
-    <Component
-      {...pageProps}
-      className={`${inter.variable} ${mulish.variable}`}
-    />
+    <AudioProvider>
+      <Component
+        {...pageProps}
+        className={`${inter.variable} ${mulish.variable}`}
+      />
+    </AudioProvider>
   );
 }

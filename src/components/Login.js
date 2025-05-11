@@ -48,21 +48,20 @@ function Login(props) {
     const selectedDateObj = new Date(selectedDate);
     const currentDate = new Date();
 
-    if (selectedDateObj > currentDate) {
-      setIsValid(false);
-      setErrorMessage("Date of birth cannot be in the future");
-    } else if (selectedDateObj < new Date(minDate)) {
-      setIsValid(false);
-      setErrorMessage("Please select a valid date of birth");
-    } else {
-      setIsValid(true);
-      setErrorMessage("");
+    // if (selectedDateObj > currentDate) {
+    //   setIsValid(false);
+    //   setErrorMessage("Date of birth cannot be in the future");
+    // } else if (selectedDateObj < new Date(minDate)) {
+    //   setIsValid(false);
+    //   setErrorMessage("Please select a valid date of birth");
+    // } else {
+    setIsValid(true);
+    setErrorMessage("");
 
-      setUserDetails({
-        ...userDetails,
-        dob: selectedDate,
-      });
-    }
+    setUserDetails({
+      ...userDetails,
+      dob: selectedDate,
+    });
   };
 
   // In Login.js - modify the handleClick function
@@ -78,10 +77,10 @@ function Login(props) {
 
     const age = calculateAge(userDetails.dob);
 
-    if (age < 20) {
-      setErrorMessage("Age should be more than or equal to 20");
-      return;
-    }
+    // if (age < 20) {
+    //   setErrorMessage("Age should be more than or equal to 20");
+    //   return;
+    // }
 
     if (!errors.name && !errors.dob && !showWarning) {
       // Calculate age from DOB to suggest appropriate section
@@ -138,7 +137,7 @@ function Login(props) {
   useEffect(() => {
     const input = inputContainerRef.current;
     if (!input) return;
-    let timer
+    let timer;
     input.addEventListener("click", () => {
       timer = setTimeout(() => {
         input.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -189,12 +188,6 @@ function Login(props) {
           ref={inputContainerRef}
           className="w-full mx-auto  text-white space-y-7 p-6 borde border-black  rounded-3xl bg-[#F48120]"
         >
-          {/* <h2 className="font-normal text-lg leading-[100%] tracking-normal text-center">
-              Share your details to help us
-              <br />
-              tailor your retirement planning
-            </h2> */}
-
           <div
             className={`grid h-full
             ${showWarning ? "gap-1.5" : "gap-5"}`}
@@ -210,13 +203,6 @@ function Login(props) {
 
               {/* DOB */}
               <div className={`space-y-0.5`}>
-                {/* <label
-              htmlFor="dob"
-              className="font-medium text-lg leading-[100%] tracking-normal"
-            >
-              Date of Birth
-            </label> */}
-
                 <input
                   type="date"
                   placeholder="01-04-2025"
@@ -227,8 +213,6 @@ function Login(props) {
                   onChange={handleDateChange}
                   min={minDate}
                   max={maxDate}
-                  // className="rounded-full border border-[#9C9C9C] px-3.5 py-3 text-[15px] leading-[100%] tracking-normal text-[#9C9C9C] placeholder-[#9C9C9C] focus:outline-2 font-semibold"
-
                   className={`rounded-full w-full px-3.5 py-3 border text-[15px] leading-[100%] tracking-normal placeholder-[#fff]  font-semibold
               !border-[#D5D5D5] focus:outline-none focus:ring-2
              ${
@@ -250,24 +234,6 @@ function Login(props) {
                 >
                   {errorMessage}{" "}
                 </p>
-
-                {/* {!isValid && (
-            <p className="mt-2 text-sm text-red-600">{errorMessage}</p>
-          )} */}
-                {/* 
-          {dob && isValid && (
-            <div className="mt-4 p-3 bg-blue-50 rounded-md">
-              <p className="text-blue-800">
-                Selected date:{" "}
-                <span className="font-medium">
-                  {new Date(dob).toLocaleDateString() }
-                </span>
-              </p>
-              <p className="text-blue-800">
-                Age: <span className="font-medium">{calculateAge()} years</span>
-              </p>
-            </div>
-          )} */}
               </div>
             </div>
 
@@ -278,60 +244,10 @@ function Login(props) {
               Submit
             </button>
           </div>
-
-          {/* Phone Number */}
-          {/* <div className="flex flex-col space-y-0.5">
-            <label
-              htmlFor="phone"
-              className="font-Mulish font-medium text-lg leading-[100%] tracking-normal"
-            >
-              Phone Number{" "}
-            </label>
-
-            <input
-              id="phone"
-              type="tel"
-              name="phone"
-              value={phone}
-              // onChange={e=>setPhone(e.target.value)}
-              onBlur={() => {
-                if (phone.length !== 10) {
-                  // setPhoneError("Phone number must be exactly 10 digits");
-                  setErrorMessage("Phone number must be exactly 10 digits");
-                }
-              }}
-              onChange={(e) => {
-                const value = e.target.value;
-                if (/\D/.test(value)) {
-                  // setPhoneError("Only numbers are allowed");
-                  setErrorMessage("Only numbers are allowed");
-                } else {
-                  setPhone(value.replace(/\D/g, ""));
-                  // setPhoneError("");
-                  setErrorMessage("");
-                }
-              }}
-              autoComplete="tel"
-              minLength={10}
-              maxLength={10}
-              inputMode="numeric"
-              placeholder="Enter Your Mobile No."
-              className="rounded-full h-11 border border-[#9C9C9C] px-3.5 py-3 text-[15px] leading-[100%] tracking-normal placeholder-[#9C9C9C] focus:outline-2 font-semibold"
-            />
-          </div> */}
-          {/* 
-          <p
-            className={`absolute text-xs text-[#AF292F] leading-[100%] font-medium -bottom-0 left-10
-          ${errorMessage ? "opacity-100" : "opacity-0"}
-          `}
-          >
-            {errorMessage}
-          </p> */}
         </div>
 
         <div className="border-b-2 border-black/30 w-4/5 mx-auto pt-8 mb-8"></div>
       </section>
-      {/* margin is outside border , padding is inside the border */}
 
       <div className="flex flex-col gap-8.5">
         <div className="text-center w-full flex flex-col gap-5">
@@ -346,9 +262,6 @@ function Login(props) {
           Disclaimers{" "}
         </button>
       </div>
-
-      {/* </div> */}
-      {/* </div> */}
     </div>
   );
 }
