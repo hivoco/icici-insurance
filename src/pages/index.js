@@ -210,7 +210,7 @@ function index() {
                 <div
                 key={id}
                   onClick={() => router.push("/home")}
-                  className="bg-[#F2F2F2] flex  p-3 rounded-xl  gap-4"
+                  className="bg-[#F2F2F2] flex  p-3 py-8 rounded-xl  gap-4 "
                 >
                   <Image
                     src={`/dev/${e.image}.png`}

@@ -234,7 +234,7 @@ const router = useRouter();
                 height={97}
               />
 
-              <strong className="font-bold text-xs text-[#004A80] w-32">
+              <strong className="font-bold text-xs text-[#004A80] ">
                 Based on your inputs, we recommend the ICICI Pru Life Guaranteed
                 Pension Plan Flexi. A smart, stable way to convert your savings
                 into lifelong income with flexibility built in.
