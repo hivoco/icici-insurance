@@ -11,12 +11,15 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import { X } from "lucide-react";
+import AudioControls from "@/components/audio-controls-component-animated";
 
 function index() {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const { shouldPlayAudio, setShouldPlayAudio } = useAudio();
   const [youtubeVideo, setYoutubeVideo] = useState(null);
   const [selectedFeature, setSelectedFeature] = useState();
+  const [isPlaying, setIsPlaying] = useState(false);
+
   const audioRef = useRef(null);
   const router = useRouter();
   useEffect(() => {
@@ -31,6 +34,7 @@ function index() {
         playPromise
           .then(() => {
             // Audio started playing successfully
+            setIsPlaying(true);
             console.log("Audio is playing");
           })
           .catch((error) => {
@@ -39,6 +43,7 @@ function index() {
           })
           .finally(() => {
             // Reset the flag after attempting to play
+            // setIsPlaying(false);
             setShouldPlayAudio(false);
           });
       }
@@ -80,11 +85,12 @@ function index() {
         if (playPromise !== undefined) {
           playPromise
             .then(() => {
+              setIsPlaying(true)
               console.log("Audio is playing from API");
             })
             .catch((error) => {
               console.error("Audio play failed:", error);
-            });
+            })
         }
       } else {
         console.error("No audio URL found in API response");
@@ -320,6 +326,34 @@ function index() {
     }
   };
 
+  const togglePlayPause = () => {
+    console.log(":");
+    if (!audioRef.current ) return;
+
+    if (isPlaying) {
+      // If audio is playing, pause it
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      setIsPlaying(false);
+    } else {
+      // If audio is paused, play it
+     
+        // If we're on the first audio
+        audioRef.current
+          .play()
+          .then(() => {
+            
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            console.warn("Playing audio failed:", error);
+          });
+          
+      
+    }
+  };
+
   // Make sure your opts are set correctly
   const opts = {
     width: "100%",
@@ -395,7 +429,9 @@ function index() {
               );
             })}
           </section>
-          <FloatingDownButton onClick={() => scrollToRef(keyFeatureRef)} />
+          {/* <FloatingDownButton onClick={() => scrollToRef(keyFeatureRef)} /> */}
+          <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div>
+
 
           <section ref={keyFeatureRef} className="p-6">
             <h3 className="text-[#F48120] text-xl font-extrabold mx-auto text-center">
@@ -417,7 +453,9 @@ function index() {
               })}
             </div>
           </section>
-          <FloatingDownButton onClick={() => scrollToRef(secureRef)} />
+          {/* <FloatingDownButton onClick={() => scrollToRef(secureRef)} /> */}
+          <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div>
+
           <section ref={secureRef} className="p-6">
             <p className="text-[#F48120] text-base font-mediun mx-auto text-center">
               Take a step towards <br />{" "}
@@ -443,7 +481,8 @@ function index() {
               })}
             </div>
           </section>
-          <FloatingDownButton onClick={() => scrollToRef(whyRef)} />
+          {/* <FloatingDownButton onClick={() => scrollToRef(whyRef)} /> */}
+          <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div>
           <section ref={whyRef} className="p-6">
             <p className="text-[#F48120] text-base font-mediun mx-auto text-center">
               Why choose <br />{" "}
@@ -499,10 +538,20 @@ function index() {
 
           <FloatingBackButton onClick={() => headerFunction()} />
 
-          <audio ref={audioRef} className="hidden">
+          <audio onEnded={() => {
+            setIsPlaying(false);
+            // setShowController(false);
+          }} ref={audioRef} className="hidden">
             <source type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>
+
+          {/* {showController && ( */}
+          <AudioControls
+            togglePlayPause={togglePlayPause}
+            isPlaying={isPlaying}
+          />
+          {/* )} */}
         </div>
       )}
     </>
