@@ -1,19 +1,19 @@
 import React, { useEffect, useRef } from "react";
 
 export default function ScrollableCards() {
-  // const scrollContainerRef = useRef(null);
+  const scrollContainerRef = useRef(null);
 
-  // const centerScrollPosition = () => {
-  //   const container = scrollContainerRef.current;
-  //   if (container) {
-  //     const scrollableWidth = container.scrollWidth - container.clientWidth;
-  //     container.scrollLeft = scrollableWidth / 2;
-  //   }
-  // };
+  const centerScrollPosition = () => {
+    const container = scrollContainerRef.current;
+    if (container) {
+      const scrollableWidth = container.scrollWidth - container.clientWidth;
+      container.scrollLeft = scrollableWidth / 2;
+    }
+  };
 
-  // useEffect(() => {
-  //   centerScrollPosition();
-  // }, []);
+  useEffect(() => {
+    centerScrollPosition();
+  }, []);
 
   return (
     <div className="flex  justify-center items-center ">

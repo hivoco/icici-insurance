@@ -35,6 +35,7 @@ import Image from "next/image";
 import React from "react";
 
 function PulseCard({ image, title }) {
+  
   return (
     <div className="flex items-center cursor-pointer text-left gap-4 hover:bg-orange-200 p-2 rounded-2xl">
       <div className="min-w-[72px] min-h-[72px] relative">

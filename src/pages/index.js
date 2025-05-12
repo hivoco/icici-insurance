@@ -189,8 +189,7 @@ function index() {
         <div className="max-w-md mx-auto  text-white  mulish-font">
           <Header onClick={headerFunction} />
           <div
-            bg
-            className="bg-[url('/dev/bg-2.png')] bg-cover bg-no-repeat bg-center h-52 flex items-center justify-end "
+            className="bg-[url('/dev/bg-2.png')] bg-cover bg-no-repeat bg-left h-52 flex items-center justify-end  px-4"
           >
             <div className=" w-fit text-right ">
               {" "}
@@ -201,7 +200,7 @@ function index() {
             </div>
           </div>
           <h4 className="font-bold text-sm text-[#004A80]  text-center  p-6">
-            Based on your inputs, we’ve selected the retirement plans that sbest
+            Based on your inputs, we’ve selected the retirement plans that best
             match your life stage and goals.
           </h4>
           <div className="p-6 flex flex-col gap-4">
@@ -210,13 +209,16 @@ function index() {
                 <div
                 key={id}
                   onClick={() => router.push("/home")}
-                  className="bg-[#F2F2F2] flex  p-3 py-8 rounded-xl  gap-4 "
+                  className="bg-[#F2F2F2] flex items-center  p-3 py-8 rounded-xl  gap-4 "
                 >
                   <Image
+                  className="object-cover"
                     src={`/dev/${e.image}.png`}
                     alt="Picture of the author"
                     width={152}
                     height={77}
+                    priority={true}
+                    quality={100}
                   />
                   <div className=" flex flex-col text-left ">
                     <strong className="font-extrabold text-xs text-[#004A80]">

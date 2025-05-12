@@ -16,6 +16,7 @@ function index() {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const { shouldPlayAudio, setShouldPlayAudio } = useAudio();
   const [youtubeVideo, setYoutubeVideo] = useState(null);
+  const [selectedFeature, setSelectedFeature] = useState();
   const audioRef = useRef(null);
   const router = useRouter();
   useEffect(() => {
@@ -338,29 +339,36 @@ function index() {
           <Header onClick={headerFunction} />
           <div
             bg
-            className="bg-[url('/dev/bg-3.png')] bg-cover bg-no-repeat bg-center h-40 flex items-center justify-end px-4 pt-20 pb-20 min-h-[254px]"
+            className="bg-[url('/dev/bg-3.png')] bg-cover  bg-no-repeat bg-left h-40 flex items-center justify-end px-4 pt-20 pb-20 min-h-[254px]"
           >
             <div className=" w-fit text-right   border-white  ">
               {" "}
-              <p className="text-lg font-medium">
-                You've chosen <br />
-                <strong className="text-2xl font-bold">balance</strong>
+              <p className="text-xl leading-6 font-medium">
+                You've chosen
                 <br />
-                We've found the <br />
-                <strong className="text-2xl font-bold">perfect fit.</strong>
+                <strong className="text-2xl leading-7.5 font-bold">
+                  balance
+                </strong>
+                <br />
+                We've found the
+                <br />
+                <strong className="text-2xl leading-7.5 font-bold">
+                  perfect fit.
+                </strong>
               </p>
             </div>
           </div>
           <section className="p-6">
-            <div className=" flex  p-3 rounded-xl gap-10 ">
+            <div className=" flex items-center  p-3 rounded-xl gap-5 ">
               <Image
+                className="self-center"
                 src="/dev/gpl.png"
                 alt="Picture of the author"
-                width={157}
-                height={97}
+                width={152}
+                height={98}
               />
 
-              <strong className="font-bold text-xs text-[#004A80] ">
+              <strong className="font-bold text-xs leading-3.5 text-[#004A80] text-left ">
                 Based on your inputs, we recommend the ICICI Pru Life Guaranteed
                 Pension Plan Flexi. A smart, stable way to convert your savings
                 into lifelong income with flexibility built in.
@@ -398,8 +406,11 @@ function index() {
                 return (
                   <Feature
                     key={id}
+                    id={id}
                     image={e.image}
                     text={e.text}
+                    selectedFeature={selectedFeature}
+                    setSelectedFeature={setSelectedFeature}
                     onClick={() => getAudioLink(e.number)}
                   />
                 );

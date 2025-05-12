@@ -8,8 +8,6 @@ import NameInput from "../components/NameInput";
 import ScrollableCards from "@/components/ScrollableCards";
 
 function Login(props) {
-  // const [dob, setDob] = useState(new Date().toISOString().split("T")[0]); //today's date
-  // const [name, setName] = useState("");
   const inputContainerRef = useRef(null);
   const [phone, setPhone] = useState("");
   const [userDetails, setUserDetails] = useState({
@@ -149,15 +147,8 @@ function Login(props) {
   }, []);
 
   return (
-    // grid-rows-[auto_1fr_1fr_auto]
     <div className="min-h-svh w-full mx-auto max-w-md py-11 pt-0 font-Mulish grid grid-rows-[auto_1fr]">
       <Header />
-
-      {/* <div
-        className=" bg-[#F0F1F1] h-full   px-5 pb-7 pt-2 flex flex-col justify-center"
-      > */}
-      {/* container of all elements */}
-      {/* <div className=""> */}
       <div className="relative ">
         <div className="absolute top-4 left-6 font-Mulish font-bold text-white">
           <h2 className="text-base leading-5"> Your dream</h2>
