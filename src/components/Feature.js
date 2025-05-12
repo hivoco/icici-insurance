@@ -39,7 +39,7 @@ function Feature({ image, text, onClick }) {
         className="absolute -top-3 -left-3"
       />
 
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute  -top-2 -left-2 ">
         <span className="relative flex h-8 w-8">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
           <span className="relative inline-flex rounded-full h-8 w-8 bg-orange-500 opacity-60"></span>
