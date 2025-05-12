@@ -190,7 +190,7 @@ function index() {
           <Header onClick={headerFunction} />
           <div
             bg
-            className="bg-[url('/dev/bg-2.png')] bg-cover bg-no-repeat bg-center h-40 flex items-center justify-end px-4 py-8 h-36"
+            className="bg-[url('/dev/bg-2.png')] bg-cover bg-no-repeat bg-center h-52 flex items-center justify-end "
           >
             <div className=" w-fit text-right ">
               {" "}
