@@ -14,7 +14,7 @@ function index() {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const { shouldPlayAudio, setShouldPlayAudio } = useAudio();
   const audioRef = useRef(null);
-const router = useRouter();
+  const router = useRouter();
   useEffect(() => {
     // If we navigated here with the intent to play audio
     if (shouldPlayAudio && audioRef.current) {
@@ -203,6 +203,16 @@ const router = useRouter();
   // Example usage:
   // openInNewTab('https://www.example.com');
 
+  const keyFeatureRef = useRef(null);
+  const secureRef = useRef(null);
+  const whyRef = useRef(null);
+
+  const scrollToRef = (ref) => {
+    if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       {isOpenLogin ? (
@@ -250,10 +260,10 @@ const router = useRouter();
           </p>
 
           <section className="p-6 flex justify-between items-center">
-            {arr?.map((e,id) => {
+            {arr?.map((e, id) => {
               return (
                 <SortComponents
-                key={id}
+                  key={id}
                   onClick={() => getAudioLink(e.number)}
                   image={e.image}
                   text={e.text}
@@ -261,9 +271,9 @@ const router = useRouter();
               );
             })}
           </section>
-          <FloatingDownButton />
+          <FloatingDownButton onClick={() => scrollToRef(keyFeatureRef)} />
 
-          <section className="p-6">
+          <section ref={keyFeatureRef} className="p-6">
             <h3 className="text-[#F48120] text-xl font-extrabold mx-auto text-center">
               Key Features
             </h3>
@@ -280,8 +290,8 @@ const router = useRouter();
               })}
             </div>
           </section>
-          <FloatingDownButton />
-          <section className="p-6">
+          <FloatingDownButton onClick={() => scrollToRef(secureRef)} />
+          <section ref={secureRef} className="p-6">
             <p className="text-[#F48120] text-base font-mediun mx-auto text-center">
               Take a step towards <br />{" "}
               <strong>securing your dream retirement</strong>
@@ -299,15 +309,15 @@ const router = useRouter();
                       alt={"Picture of the author"}
                       width={147}
                       height={90}
-                      className="w-full h-auto object-contain"
+                      className="w-full h-auto object-contain cursor-pointer "
                     />
                   </div>
                 );
               })}
             </div>
           </section>
-          <FloatingDownButton />
-          <section className="p-6">
+          <FloatingDownButton onClick={() => scrollToRef(whyRef)} />
+          <section ref={whyRef} className="p-6">
             <p className="text-[#F48120] text-base font-mediun mx-auto text-center">
               Why choose <br />{" "}
               <strong>ICICI Prudential Life Insurance?</strong>
