@@ -372,8 +372,8 @@ function index() {
         <div className="max-w-md mx-auto  text-white  mulish-font">
           <Header onClick={headerFunction} />
           <div
-            bg
-            className="bg-[url('/dev/bg-3.png')] bg-cover  bg-no-repeat bg-left h-40 flex items-center justify-end px-4 pt-20 pb-20 min-h-[254px]"
+           
+            className="bg-[url('/dev/bg-3.png')] bg-cover  bg-no-repeat bg-left h-40 flex items-center justify-end px-4 pt-20 pb-20   min-h-[254px]"
           >
             <div className=" w-fit text-right   border-white  ">
               {" "}

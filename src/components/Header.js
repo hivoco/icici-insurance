@@ -31,7 +31,7 @@ import React from "react";
 
 function Header({ text, onClick }) {
   return (
-    <div className="relative w-full flex justify-center items-center h-16 px-6 py-11 pb-18 bg-white">
+    <div className="relative w-full flex justify-center items-center h-16 px-6 py-11 pb-12 bg-white">
       <Link href={"/"}>
         <div className="relative">
           <Image
