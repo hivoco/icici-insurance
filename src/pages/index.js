@@ -209,7 +209,7 @@ function index() {
                 <div
                 key={id}
                   onClick={() => router.push("/home")}
-                  className="bg-[#F2F2F2] flex items-center  p-3 py-8 rounded-xl  gap-4 "
+                  className="bg-[#F2F2F2] flex items-center  p-3 py-8 rounded-xl  gap-4 cursor-pointer "
                 >
                   <Image
                   className="object-cover"
