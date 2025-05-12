@@ -9,10 +9,13 @@ import { useAudio } from "@/context/AudioContext";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
+import YouTube from "react-youtube";
+import { X } from "lucide-react";
 
 function index() {
   const [isOpenLogin, setIsOpenLogin] = useState(false);
   const { shouldPlayAudio, setShouldPlayAudio } = useAudio();
+  const [youtubeVideo, setYoutubeVideo] = useState(null);
   const audioRef = useRef(null);
   const router = useRouter();
   useEffect(() => {
@@ -188,7 +191,7 @@ function index() {
     },
     {
       image: "download",
-      url: "https://youtu.be/8KkJgp5M7Bs?si=JFsGOngIwhsW0ogj?UID=49075",
+      url: "https://www.iciciprulife.com/content/dam/icicipru/brochures/ICICI_Pru_GPP_Flexi_Brochure.pdf?UID=49076",
     },
     {
       image: "contact",
@@ -211,6 +214,119 @@ function index() {
     if (ref?.current) {
       ref.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  function isValidNonYouTubeUrl(input) {
+    try {
+      // Check if input is a string
+      if (typeof input !== "string") {
+        return false;
+      }
+
+      // Create a URL object to validate the URL
+      const url = new URL(input);
+
+      // Check if the protocol is http or https
+      if (url.protocol !== "http:" && url.protocol !== "https:") {
+        return false;
+      }
+
+      // Check if it's NOT a YouTube URL
+      const youtubeHostnames = [
+        "youtube.com",
+        "www.youtube.com",
+        "youtu.be",
+        "m.youtube.com",
+      ];
+
+      return !youtubeHostnames.some(
+        (hostname) =>
+          url.hostname === hostname || url.hostname.endsWith("." + hostname)
+      );
+    } catch (error) {
+      // If URL constructor throws an error, it's an invalid URL
+      return false;
+    }
+  }
+
+  const handleCardAction = (target) => {
+    if (isValidNonYouTubeUrl(target)) {
+      window.open(target, "_blank");
+    }
+
+    if (typeof target === "string" && target.startsWith("022")) {
+      window.location.href = `tel:${target}`;
+    }
+    if (typeof target === "string" && target === "openqr") {
+      setIsQRPopupOpen(true);
+    }
+
+    // Check if the target is a YouTube link
+    if (
+      typeof target === "string" &&
+      (target.includes("youtube.com") || target.includes("youtu.be"))
+    ) {
+      // Extract video ID
+      let videoId = "";
+
+      if (target.includes("youtube.com/watch?v=")) {
+        videoId = target.split("v=")[1].split("&")[0];
+      } else if (target.includes("youtu.be/")) {
+        videoId = target.split("youtu.be/")[1].split("?")[0];
+      }
+
+      if (videoId) {
+        // Set the YouTube video ID to show the player
+        setYoutubeVideo(videoId);
+        return;
+      }
+
+      // Fallback to opening in new tab if we couldn't extract the ID
+      window.open(target, "_blank", "noopener,noreferrer");
+    }
+    // Check if it's a section ID on the page
+    else if (typeof target === "string" && target.startsWith("#")) {
+      // Remove the # if it exists at the beginning
+      const sectionId = target.startsWith("#") ? target.substring(1) : target;
+      const element = document.getElementById(sectionId);
+
+      if (element) {
+        // Smooth scroll to the element
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+    // Directly use element ID without # prefix
+    else if (typeof target === "string") {
+      const element = document.getElementById(target);
+
+      if (element) {
+        // Smooth scroll to the element
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    }
+
+    // else if (typeof target === "string" && target.startsWith("022")) {
+    //   console.log("miss call");
+    // }
+    else if (typeof target === "boolean") {
+      setIsPopupOpen(true);
+    }
+  };
+
+  // Make sure your opts are set correctly
+  const opts = {
+    width: "100%",
+    height: "100%",
+    playerVars: {
+      autoplay: 1,
+      controls: 1,
+    },
   };
 
   return (
@@ -300,7 +416,7 @@ function index() {
               {security?.map((e, id) => {
                 return (
                   <div
-                    onClick={() => openInNewTab(e.url)}
+                    onClick={() => handleCardAction(e.url)}
                     key={id}
                     className="w-full"
                   >
@@ -346,6 +462,29 @@ function index() {
               Disclaimers{" "}
             </button>
           </div>
+
+          {youtubeVideo && (
+            <div className="fixed bottom-0 left-0 right-0 bg-black bg-opacity-75 p-4 flex flex-col items-center z-50">
+              <div className="relative w-full max-w-md">
+                <button
+                  className="absolute -top-10 right-0 bg-orange-600 text-white p-2 rounded-full"
+                  onClick={() => setYoutubeVideo(null)}
+                >
+                  <X size={24} />
+                </button>
+                <div
+                  className="relative w-full"
+                  style={{ paddingBottom: "62%" }}
+                >
+                  <YouTube
+                    videoId={youtubeVideo}
+                    opts={opts}
+                    className="absolute top-0 left-0 w-full h-full"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
 
           <FloatingBackButton onClick={() => headerFunction()} />
 
