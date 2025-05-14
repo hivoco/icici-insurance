@@ -409,7 +409,7 @@ function index() {
               </strong>
             </div>
           </section>
-          <p className="font-bold text-sm text-[#004A80]  text-center  p-6 py-1">
+          {/* <p className="font-bold text-sm text-[#004A80]  text-center  p-6 py-1">
             Why{" "}
             <strong className="font-extrabold  ">
               ICICI Pru Life GPP Flexi Plan
@@ -428,9 +428,9 @@ function index() {
                 />
               );
             })}
-          </section>
-          <FloatingDownButton onClick={() => scrollToRef(keyFeatureRef)} />
-          {/* <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div> */}
+          </section> */}
+          {/* <FloatingDownButton onClick={() => scrollToRef(keyFeatureRef)} /> */}
+          <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div>
 
 
           <section ref={keyFeatureRef} className="p-6">
@@ -453,8 +453,8 @@ function index() {
               })}
             </div>
           </section>
-          <FloatingDownButton onClick={() => scrollToRef(secureRef)} />
-          {/* <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div> */}
+          {/* <FloatingDownButton onClick={() => scrollToRef(secureRef)} /> */}
+          <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div>
 
           <section ref={secureRef} className="p-6">
             <p className="text-[#F48120] text-base font-mediun mx-auto text-center">
@@ -481,8 +481,8 @@ function index() {
               })}
             </div>
           </section>
-          <FloatingDownButton onClick={() => scrollToRef(whyRef)} />
-          {/* <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div> */}
+          {/* <FloatingDownButton onClick={() => scrollToRef(whyRef)} /> */}
+          <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div>
           <section ref={whyRef} className="p-6">
             <p className="text-[#F48120] text-base font-mediun mx-auto text-center">
               Why choose <br />{" "}
