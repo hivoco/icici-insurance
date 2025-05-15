@@ -122,7 +122,7 @@ function index() {
     },
     {
       image: "flex",
-      text: "Protect your partner too",
+      text: "Protect your partner",
       number: 6,
     },
   ];
