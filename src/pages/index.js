@@ -212,7 +212,7 @@ function index() {
                   <Image
                     className="object-cover"
                     src={`/dev/${e.image}.png`}
-                    alt="Picture of the author"
+                    alt={`${e.image}`}
                     width={152}
                     height={77}
                     priority={true}
