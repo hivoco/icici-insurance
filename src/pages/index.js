@@ -188,9 +188,7 @@ function index() {
       ) : (
         <div className="max-w-md mx-auto  text-white  mulish-font">
           <Header onClick={headerFunction} />
-          <div
-            className="bg-[url('/dev/bg-2.png')] bg-cover bg-no-repeat bg-left h-52 flex items-center justify-end  px-4"
-          >
+          <div className="bg-[url('/dev/bg-2.png')] bg-cover bg-no-repeat bg-left h-52 flex items-center justify-end  px-4">
             <div className=" w-fit text-right ">
               {" "}
               <h3 className="text-2xl font-bold">Retirement Plans,</h3>
@@ -203,16 +201,16 @@ function index() {
             Based on your inputs, we’ve selected the retirement plans that best
             match your life stage and goals.
           </h4>
-          <div className="p-6 flex flex-col gap-4">
-            {arr?.map((e,id) => {
+          <div className="p-6 flex flex-col gap-4 ">
+            {arr?.map((e, id) => {
               return (
                 <div
-                key={id}
+                  key={id}
                   onClick={() => router.push("/home")}
                   className="bg-[#F2F2F2] flex items-center  p-3 py-8 rounded-xl  gap-4 cursor-pointer "
                 >
                   <Image
-                  className="object-cover"
+                    className="object-cover"
                     src={`/dev/${e.image}.png`}
                     alt="Picture of the author"
                     width={152}

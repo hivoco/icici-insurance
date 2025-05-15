@@ -85,12 +85,12 @@ function index() {
         if (playPromise !== undefined) {
           playPromise
             .then(() => {
-              setIsPlaying(true)
+              setIsPlaying(true);
               console.log("Audio is playing from API");
             })
             .catch((error) => {
               console.error("Audio play failed:", error);
-            })
+            });
         }
       } else {
         console.error("No audio URL found in API response");
@@ -112,17 +112,17 @@ function index() {
   const arr = [
     {
       image: "timer",
-      text: "Perfect Timing",
+      text: "Lock-in Returns",
       number: 4,
     },
     {
       image: "hand",
-      text: "Financial Fit",
+      text: "Permanent income",
       number: 5,
     },
     {
       image: "flex",
-      text: "Built-in-Flexibility",
+      text: "Protect your partner too",
       number: 6,
     },
   ];
@@ -328,7 +328,7 @@ function index() {
 
   const togglePlayPause = () => {
     console.log(":");
-    if (!audioRef.current ) return;
+    if (!audioRef.current) return;
 
     if (isPlaying) {
       // If audio is playing, pause it
@@ -338,19 +338,16 @@ function index() {
       setIsPlaying(false);
     } else {
       // If audio is paused, play it
-     
-        // If we're on the first audio
-        audioRef.current
-          .play()
-          .then(() => {
-            
-            setIsPlaying(true);
-          })
-          .catch((error) => {
-            console.warn("Playing audio failed:", error);
-          });
-          
-      
+
+      // If we're on the first audio
+      audioRef.current
+        .play()
+        .then(() => {
+          setIsPlaying(true);
+        })
+        .catch((error) => {
+          console.warn("Playing audio failed:", error);
+        });
     }
   };
 
@@ -371,10 +368,7 @@ function index() {
       ) : (
         <div className="max-w-md mx-auto  text-white  mulish-font">
           <Header onClick={headerFunction} />
-          <div
-           
-            className="bg-[url('/dev/bg-3.png')] bg-cover  bg-no-repeat bg-left h-40 flex items-center justify-end px-4 pt-20 pb-20   min-h-[254px]"
-          >
+          <div className="bg-[url('/dev/bg-3.png')] bg-cover  bg-no-repeat bg-left h-40 flex items-center justify-end px-4 pt-20 pb-20   min-h-[254px]">
             <div className=" w-fit text-right   border-white  ">
               {" "}
               <p className="text-xl leading-6 font-medium">
@@ -403,13 +397,16 @@ function index() {
               />
 
               <strong className="font-bold text-xs leading-3.5 text-[#004A80] text-left ">
-                Based on your inputs, we recommend the ICICI Pru Life Guaranteed
+                {/* Based on your inputs, we recommend the ICICI Pru Life Guaranteed
                 Pension Plan Flexi. A smart, stable way to convert your savings
-                into lifelong income with flexibility built in.
+                into lifelong income with flexibility built in. */}
+                We recommend ICICI Pru Guaranteed Pension Plan Flexi that offers
+                lifetime guaranteed income to ensure you can continue living
+                life on your own terms.
               </strong>
             </div>
           </section>
-          {/* <p className="font-bold text-sm text-[#004A80]  text-center  p-6 py-1">
+          <p className="font-bold text-sm text-[#004A80]  text-center  p-6 py-1">
             Why{" "}
             <strong className="font-extrabold  ">
               ICICI Pru Life GPP Flexi Plan
@@ -428,10 +425,9 @@ function index() {
                 />
               );
             })}
-          </section> */}
+          </section>
           {/* <FloatingDownButton onClick={() => scrollToRef(keyFeatureRef)} /> */}
           <div className="border-t-2 border-gray-200 w-4/5 mx-auto py-3"></div>
-
 
           <section ref={keyFeatureRef} className="p-6">
             <h3 className="text-[#F48120] text-xl font-extrabold mx-auto text-center">
@@ -538,10 +534,14 @@ function index() {
 
           <FloatingBackButton onClick={() => headerFunction()} />
 
-          <audio onEnded={() => {
-            setIsPlaying(false);
-            // setShowController(false);
-          }} ref={audioRef} className="hidden">
+          <audio
+            onEnded={() => {
+              setIsPlaying(false);
+              // setShowController(false);
+            }}
+            ref={audioRef}
+            className="hidden"
+          >
             <source type="audio/mpeg" />
             Your browser does not support the audio element.
           </audio>

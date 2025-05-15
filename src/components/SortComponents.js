@@ -23,7 +23,7 @@ function SortComponents({ image, text, onClick }) {
           </span>
         </div>
       </div>
-      <strong className="font-bold text-sm text-[#F48120]">{text}</strong>
+      <strong className="font-bold text-sm text-[#F48120] text-center">{text}</strong>
     </div>
   );
 }
