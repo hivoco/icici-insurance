@@ -236,7 +236,7 @@ function index() {
           <div className="text-center w-full mt-8">
             {" "}
             <button
-              onClick={() => {}}
+              onClick={() => handleNavigation("/disclaimers")}
               className="cursor-pointer  bg-[#E5E5E5] border !border-black/50 h-10  w-fit min-w-36  text-[#004A80]  font-extrabold text-lg leading-[100%] tracking-normal  px-7 rounded-full transition mb-10 "
             >
               Disclaimers{" "}

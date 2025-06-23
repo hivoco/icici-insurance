@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import NameInput from "../components/NameInput";
 import ScrollableCards from "@/components/ScrollableCards";
+import { useRouter } from "next/router";
 
 function Login(props) {
   const inputContainerRef = useRef(null);
@@ -14,7 +15,7 @@ function Login(props) {
     name: "",
     dob: new Date().toISOString().split("T")[0],
   });
-
+const router = useRouter()
   // console.log(userDetails,"userDetails");
 
   const [isValid, setIsValid] = useState(true);
@@ -247,7 +248,7 @@ function Login(props) {
         </div>
 
         <button
-          onClick={() => {}}
+          onClick={() => router.push("/disclaimers")}
           className="cursor-pointer bg-[#E5E5E5] border !border-black/50 h-10 mx-auto w-fit min-w-36  text-[#004A80]  font-extrabold text-lg leading-[100%] tracking-normal  px-7 rounded-full transition "
         >
           Disclaimers{" "}
